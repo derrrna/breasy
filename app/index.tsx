@@ -1,20 +1,24 @@
-import {Button, Text, View} from "react-native";
+﻿import {Button, Pressable, Text, View} from "react-native";
 import "./global.css";
+import {Ionicons} from "@expo/vector-icons";
 
 export default function Index() {
 
     //TODO
-    const handlePlayButton = () => {}
+    const handlePlayButton = () => {
+    }
 
     return (
-        <View className="flex items-center justify-center bg-white">
-            <Text> Made by Danna </Text>
-            <Text> Breasy </Text>
+        <View className={"flex-1 flex-col bg-white w-full h-full bg-black items-center justify-center "}>
 
-            <Button
-                title={"test button"}
-                onPress={handlePlayButton}
-            />
+            <View className={"flex-col items-center "}>
+                <Text> Made by Danna </Text>
+                <Text> Breasy </Text>
+            </View>
+
+            <Pressable onPress={handlePlayButton}>
+                <Ionicons name="play-circle" color={"#76C893"} size={300} />
+            </Pressable>
 
         </View>
     );
