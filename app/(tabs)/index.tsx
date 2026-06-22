@@ -8,11 +8,11 @@ export default function Index() {
     }
 
     return (
-        <View className={"flex-1 flex-col bg-white items-center justify-center"}>
+        <View className={"flex-1 flex-col items-center justify-center"}>
 
-            <View className={"flex-col items-center "}>
-                <Text> Made by Danna </Text>
-                <Text> Breasy </Text>
+            <View className={"flex-col items-center mb-[80px]"}>
+                <Text className={"text-5xl"} style={{ lineHeight: 64 }}> breasy </Text>
+                <Text className={"text-xl"}> Made by Danna </Text>
             </View>
 
             <Pressable onPress={handlePlayButton}>

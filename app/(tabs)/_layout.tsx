@@ -19,7 +19,7 @@ export default function TabLayout() {
                 },
                 tabBarLabelStyle: {
                     fontSize: 15,
-                }
+                },
             }}
         >
             <Tabs.Screen
