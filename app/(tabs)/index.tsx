@@ -1,5 +1,4 @@
 ﻿import {Button, Pressable, Text, View} from "react-native";
-import "./global.css";
 import {Ionicons} from "@expo/vector-icons";
 
 export default function Index() {
@@ -9,7 +8,7 @@ export default function Index() {
     }
 
     return (
-        <View className={"flex-1 flex-col bg-white w-full h-full bg-black items-center justify-center "}>
+        <View className={"flex-1 flex-col bg-white items-center justify-center"}>
 
             <View className={"flex-col items-center "}>
                 <Text> Made by Danna </Text>
