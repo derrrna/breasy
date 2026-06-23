@@ -9,32 +9,36 @@ export default function Index() {
     }
 
     return (
-        <View className={"flex-1 flex-col justify-center"}>
+        <View className={"flex flex-col w-full h-full"}>
 
             {/* HEADER */}
-            <View className={"flex-row bg-[#168AAD]"}>
-                <FontAwesome name={"leaf"} className={"h-full"} color={"#76C893"}/>
+            <View className={"flex-row bg-[#168AAD] pt-20 pb-4 px-6 items-center gap-3"}>
+                <FontAwesome name={"leaf"} size={40} color={"#76C893"}/>
                 <View className={"flex-col"}>
-                    <Text className={"text-5xl color-white"} style={{ lineHeight: 64 }}>breasy</Text>
-                    <Text className={"text-xl color-white"}>breathe easier</Text>
+                    <Text className={"text-4xl font-bold color-white"}>breasy</Text>
+                    <Text className={"text-base color-white"}>breathe easier</Text>
                 </View>
             </View>
 
             {/* MIDDLE */}
-            <View className={"bg-orange-300"}>
+            <View className={"flex-1 bg-white"}>
                 <Text> PLACEHOLDER </Text>
             </View>
 
             {/* BOTTOM BAR */}
-            <View className={"flex-row"}>
+            <View className={"flex-row justify-evenly items-center bg-[#168AAD] px-6 pb-10 pt-6"}>
                 {/* Restart Button */}
                 <SmallButton onPress={handlePlayButton} iconName={"arrow-rotate-right"}/>
                 {/* Sound on / off button */}
                 <SmallButton onPress={handlePlayButton} iconName={"volume-high"}/>
 
-                {/* Big play-pause button*/}
-                <Pressable onPress={handlePlayButton}>
-                    <FontAwesome name={"play"} color={"#76C893"} size={100} />
+                {/* Big play-pause button */}
+                <Pressable
+                    onPress={handlePlayButton}
+                    className={"items-center justify-center rounded-full bg-[#76C893]"}
+                    style={{ width: 92, height: 92, marginTop: -60 }}>
+                    {/* Big play-pause button TODO: replace with actual playbutton instead */}
+                    <FontAwesome name={"play"} color={"#FEFEFE"} size={46} className={"ml-4"} />
                 </Pressable>
 
                 {/* Bluetooth button*/}

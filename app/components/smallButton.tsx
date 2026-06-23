@@ -11,8 +11,14 @@ interface SmallButtonProps {
 
 export default function SmallButton(props: SmallButtonProps) {
     return (
-        <Pressable onPress={props.onPress} className={"bg-[#76C893]"}>
-            <FontAwesome6 name={props.iconName} color={"#FEFEFE"} size={50} />
+        <Pressable onPress={props.onPress}
+                   className={"items-center rounded-xl justify-center w-14 h-14 bg-[#76C893]"}>
+            <FontAwesome6
+                name={props.iconName}
+                color={"#FEFEFE"}
+                size={23}
+                className={""}
+            />
         </Pressable>
     )
 }
