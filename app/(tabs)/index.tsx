@@ -1,6 +1,7 @@
 ﻿import {Pressable, Text, View} from "react-native";
 import {FontAwesome6} from "@expo/vector-icons";
 import SmallButton from "@/app/components/smallButton";
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 export default function Index() {
 
@@ -15,14 +16,28 @@ export default function Index() {
             <View className={"flex-row bg-[#168AAD] pt-20 pb-4 px-6 items-center gap-3"}>
                 <FontAwesome6 name={"leaf"} size={40} color={"#76C893"}/>
                 <View className={"flex-col"}>
-                    <Text className={"text-4xl font-bold color-white"}>breasy</Text>
-                    <Text className={"text-base color-white"}>breathe easier</Text>
+                    <Text className={"text-6xl leading-none color-white font-vividly"}>breasy</Text>
+                    <Text className={"text-base color-white -mt-3 ml-1.5"}>breathe easier.</Text>
                 </View>
             </View>
 
-            {/* MIDDLE */}
-            <View className={"flex-1 bg-white"}>
-                <Text> PLACEHOLDER </Text>
+            {/* CONTENT */}
+            <View className={"flex-1 bg-white justify-center items-center"}>
+                <Text className={"mb-16"}> Bluetooth Connection</Text>
+
+                <AnimatedCircularProgress
+                    size={350}
+                    width={20}
+                    fill={50}
+                    tintColor={"#76C893"}
+                    backgroundColor={"#76C89370"}
+                    lineCap={"round"}
+                    rotation={0}
+                >
+
+                </AnimatedCircularProgress>
+
+                <Text className={"color-[#168AAD] text-8xl mt-5"}>5</Text>
             </View>
 
             {/* BOTTOM BAR */}
