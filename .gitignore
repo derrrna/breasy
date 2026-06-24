@@ -46,3 +46,7 @@ app-example
 .claude
 .idea
 .vscode
+
+# Claude AI config files
+CLAUDE.md
+AGENTS.md

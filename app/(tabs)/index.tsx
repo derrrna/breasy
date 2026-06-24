@@ -1,5 +1,5 @@
-﻿import {Button, Pressable, Text, View} from "react-native";
-import {FontAwesome, FontAwesome6} from "@expo/vector-icons";
+﻿import {Pressable, Text, View} from "react-native";
+import {FontAwesome6} from "@expo/vector-icons";
 import SmallButton from "@/app/components/smallButton";
 
 export default function Index() {
@@ -13,7 +13,7 @@ export default function Index() {
 
             {/* HEADER */}
             <View className={"flex-row bg-[#168AAD] pt-20 pb-4 px-6 items-center gap-3"}>
-                <FontAwesome name={"leaf"} size={40} color={"#76C893"}/>
+                <FontAwesome6 name={"leaf"} size={40} color={"#76C893"}/>
                 <View className={"flex-col"}>
                     <Text className={"text-4xl font-bold color-white"}>breasy</Text>
                     <Text className={"text-base color-white"}>breathe easier</Text>
@@ -33,18 +33,15 @@ export default function Index() {
                 <SmallButton onPress={handlePlayButton} iconName={"volume-high"}/>
 
                 {/* Big play-pause button */}
-                <Pressable
-                    onPress={handlePlayButton}
-                    className={"items-center justify-center rounded-full bg-[#76C893]"}
-                    style={{ width: 92, height: 92, marginTop: -60 }}>
-                    {/* Big play-pause button TODO: replace with actual playbutton instead */}
-                    <FontAwesome name={"play"} color={"#FEFEFE"} size={46} className={"ml-4"} />
+                <Pressable onPress={handlePlayButton}
+                           className={"-mt-[60px] w-[92px] h-[92px] bg-[#76C893] rounded-full items-center justify-center"}>
+                    <FontAwesome6 name={"play"} color={"white"} size={40} style={{ marginLeft: 4 }}/>
                 </Pressable>
 
                 {/* Bluetooth button*/}
                 <SmallButton onPress={handlePlayButton} iconName={"bluetooth-b"}/>
                 {/* Settings Button */}
-                <SmallButton onPress={handlePlayButton} iconName={"cog"}/>
+                <SmallButton onPress={handlePlayButton} iconName={"gear"}/>
             </View>
 
         </View>
