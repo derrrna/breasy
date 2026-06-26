@@ -16,7 +16,6 @@ export default function RootLayout() {
           {/*TODO: Use Header options here*/}
           <Stack screenOptions={{
               header: () => <Header/>,
-
           }}>
               <Stack.Screen name="(tabs)"/>
           </Stack>

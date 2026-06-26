@@ -51,7 +51,15 @@ export default function Index() {
     return (
         <View className={"flex flex-col w-full bg-white h-full"}>
 
-            {/* CONTENT */}
+            {/* CONFIG */}
+            <View className={"flex-row items-center justify-center px-6 pb-10 "}>
+                {/* Sound on / off button */}
+                <SmallButton onPress={handlePlayButton} iconName={"volume-high"}/>
+                {/* Restart Button */}
+                <SmallButton onPress={handlePlayButton} iconName={"arrow-rotate-right"}/>
+            </View>
+
+            {/* EXERCISE VISUAL */}
             <View className={"flex-1  items-center justify-center"}>
                 <Text className={"mb-16"}> Bluetooth Connection</Text>
                 <AnimatedCircularProgress
@@ -71,22 +79,6 @@ export default function Index() {
                     )}
                 </AnimatedCircularProgress>
             </View>
-
-            {/* BOTTOM SETTINGS */}
-            <View className={"flex-row items-center justify-center px-6 pb-10 "}>
-                {/* Sound on / off button */}
-                <SmallButton onPress={handlePlayButton} iconName={"volume-high"}/>
-
-                {/* Big play-pause button */}
-                <Pressable onPress={handlePlayButton}
-                           className={"w-[110px] h-[110px] m-5 bg-[#76C893] rounded-full items-center justify-center"}>
-                    <FontAwesome6 name={"play"} color={"white"} size={55} style={{ marginLeft: 4 }}/>
-                </Pressable>
-
-                {/* Restart Button */}
-                <SmallButton onPress={handlePlayButton} iconName={"arrow-rotate-right"}/>
-            </View>
-
         </View>
     );
 }
