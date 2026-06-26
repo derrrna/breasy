@@ -1,4 +1,4 @@
-﻿import {Pressable, Text, View} from "react-native";
+﻿import {Pressable, Switch, Text, View} from "react-native";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import Header from "@/app/components/header";
 import SmallButton from "@/app/components/smallButton";

@@ -6,19 +6,9 @@ export default function TabLayout() {
         <Tabs
             screenOptions={{
                     headerShown: false,
-
                     tabBarActiveTintColor: '#168AAD',
-                    tabBarInactiveBackgroundColor: '#168AAD',
                     animation: 'shift',
-                    tabBarStyle: {
-                        paddingTop: 8,
-                        paddingBottom: 10,
-                        borderTopWidth: 0,
-                        elevation: 0,
-                    },
-                    tabBarIconStyle: {
-                        marginBottom: 5,
-                    },
+                    tabBarStyle: {flexDirection: 'row'},
                     tabBarLabelStyle: {
                         fontSize: 15,
                     }
