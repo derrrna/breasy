@@ -2,6 +2,7 @@ import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import "./global.css";
 import {SafeAreaProvider} from "react-native-safe-area-context";
+import Header from "@/app/components/header";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -12,8 +13,12 @@ export default function RootLayout() {
 
   return (
       <SafeAreaProvider>
-          <Stack>
-              <Stack.Screen name="(tabs)" options={{headerShown: false}} />
+          {/*TODO: Use Header options here*/}
+          <Stack screenOptions={{
+              header: () => <Header/>,
+
+          }}>
+              <Stack.Screen name="(tabs)"/>
           </Stack>
       </SafeAreaProvider>
   )

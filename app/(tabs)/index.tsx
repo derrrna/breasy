@@ -51,9 +51,6 @@ export default function Index() {
     return (
         <View className={"flex flex-col w-full bg-white h-full"}>
 
-            {/* HEADER */}
-            <Header/>
-
             {/* CONTENT */}
             <View className={"flex-1  items-center justify-center"}>
                 <Text className={"mb-16"}> Bluetooth Connection</Text>

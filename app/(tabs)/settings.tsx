@@ -8,7 +8,6 @@ export default function Settings(){
 
     return (
         <View>
-            <Header/>
 
             {/* FORM TODO: make as radio button components. Use FieldGroup*/}
             <ScrollView>
