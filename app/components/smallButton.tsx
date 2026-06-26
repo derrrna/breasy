@@ -17,13 +17,13 @@ export default function SmallButton(props: SmallButtonProps) {
 
     const backgroundColor = colorAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: ['#76C893', '#5aaf7a'],
+        outputRange: ['#168AAD', '#126E8A'],
     });
 
     return (
         <Pressable onPress={props.onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
-            <Animated.View style={{ backgroundColor }} className={"items-center rounded-xl justify-center w-14 h-14"}>
-                <FontAwesome6 name={props.iconName} color={"#FEFEFE"} size={23} />
+            <Animated.View style={{ backgroundColor }} className={"items-center rounded-xl justify-center w-16 h-16"}>
+                <FontAwesome6 name={props.iconName} color={"#FEFEFE"} size={28} />
             </Animated.View>
         </Pressable>
     );
