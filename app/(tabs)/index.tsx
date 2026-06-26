@@ -12,9 +12,14 @@ export default function Index() {
     const [inhaleCount, setInhaleCount] = useState(4)
     const [exhaleCount, setExhaleCount] = useState(6)
 
+    const [cycleCount, setCycleCount] = useState(3)
+    const [currentCycle, setCurrentCycle] = useState(0)
+
     {/* COUNTDOWN */}
     const [pressedPlay, setPressedPlay] = useState(false)
     const [breathProgress, setBreathProgress] = useState(0)
+
+    const [isInhalePhase, setIsInhalePhase] = useState(true)
 
     const handlePlayButton = () => {
         setPressedPlay(true)
