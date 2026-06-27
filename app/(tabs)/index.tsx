@@ -49,7 +49,7 @@ export default function Index() {
     }, [pressedPlay])
 
     return (
-        <View className={"flex flex-col w-full bg-white h-full"}>
+        <View className={"flex flex-col w-full bg-white h-full items-center justify-center"}>
 
             {/* CONFIG */}
             <View className={"flex-row items-center justify-center px-6 pb-10 "}>
@@ -60,8 +60,7 @@ export default function Index() {
             </View>
 
             {/* EXERCISE VISUAL */}
-            <View className={"flex-1  items-center justify-center"}>
-                <Text className={"mb-16"}> Bluetooth Connection</Text>
+            <View>
                 <AnimatedCircularProgress
                     size={350}
                     width={20}
@@ -79,6 +78,8 @@ export default function Index() {
                     )}
                 </AnimatedCircularProgress>
             </View>
+
+            <Text>Bluetooth connection</Text>
         </View>
     );
 }

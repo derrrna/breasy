@@ -14,9 +14,9 @@ export default function RootLayout() {
   return (
       <SafeAreaProvider>
           {/*TODO: Use Header options here*/}
-          <Stack screenOptions={{
-              header: () => <Header/>,
-          }}>
+          <Stack
+              screenOptions={{header: () => <Header/>}}
+          >
               <Stack.Screen name="(tabs)"/>
           </Stack>
       </SafeAreaProvider>
