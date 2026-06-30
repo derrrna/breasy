@@ -54,6 +54,7 @@ export default function Index() {
             {/* CONFIG */}
             <View className={"flex-row items-center justify-center px-6 pb-10 "}>
                 {/* Sound on / off button */}
+                <Switch></Switch>
                 <SmallButton onPress={handlePlayButton} iconName={"volume-high"}/>
                 {/* Restart Button */}
                 <SmallButton onPress={handlePlayButton} iconName={"arrow-rotate-right"}/>
