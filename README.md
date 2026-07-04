@@ -1,10 +1,14 @@
 # Breasy
 
-**Status: Work in Progress.**
+### **Status: Work in Progress**
+
+---
 
 A React Native breathing exercise app paired with **'Froggie**, a Bluetooth haptic companion device designed to guide paced breathing during anxiety or panic without requiring the phone to stay in view.
 
 ## Tech Stack
+
+---
 
 ### **App** 
 - React Native
@@ -17,6 +21,8 @@ A React Native breathing exercise app paired with **'Froggie**, a Bluetooth hapt
 - Vibration motor
 
 ## Features
+
+---
 
 ### Current
 
