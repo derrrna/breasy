@@ -19,6 +19,7 @@ export default function Index() {
     const [pressedPlay, setPressedPlay] = useState(false)
     const [breathProgress, setBreathProgress] = useState(0)
     const [isInhalePhase, setIsInhalePhase] = useState(true)
+    const [phaseCount, setPhaseCount] = useState(inhaleCount)
 
     // NOTE: Redundancy
     const currentCycleCopy = useRef(currentCycle)
@@ -46,6 +47,7 @@ export default function Index() {
             const finishedPhase = nextProgress >= count
 
             setBreathProgress(nextProgress)
+            setPhaseCount(count)
             breathProgressCopy.current = finishedPhase ? 0 : nextProgress
 
             return finishedPhase
@@ -101,13 +103,14 @@ export default function Index() {
                 {/* Restart Button */}
                 <SmallButton onPress={handlePlayButton} iconName={"arrow-rotate-right"}/>
             </View>
+            <Text>Cycle Count: {currentCycle}</Text>
 
             {/* EXERCISE VISUAL */}
             <View>
                 <AnimatedCircularProgress
                     size={350}
                     width={20}
-                    fill={(breathProgress / (isInhalePhase ? inhaleCount : exhaleCount)) * 100}
+                    fill={(breathProgress / phaseCount) * 100}
                     tintColor={"#76C893"}
                     backgroundColor={"#76C89370"}
                     lineCap={"round"}
