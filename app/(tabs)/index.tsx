@@ -15,7 +15,7 @@ export default function Index() {
     const [cycleCount, setCycleCount] = useState(3)
     const [currentCycle, setCurrentCycle] = useState(0)
 
-    // COUNTDOWN
+    // EXERCISE VISUAL
     const [pressedPlay, setPressedPlay] = useState(false)
     const [breathProgress, setBreathProgress] = useState(0)
     const [isInhalePhase, setIsInhalePhase] = useState(true)
@@ -35,6 +35,18 @@ export default function Index() {
 
     const handlePlayButton = () => {
         setPressedPlay(true)
+    }
+
+    // RESET BUTTON
+    const handleResetButton = () => {
+        setPressedPlay(false)
+        setBreathProgress(0)
+        setIsInhalePhase(true)
+        setPhaseCount(inhaleCount)
+        setCurrentCycle(0)
+        breathProgressCopy.current = 0
+        isInhalePhaseCopy.current = true
+        currentCycleCopy.current = 0
     }
 
     useEffect(() => {
@@ -100,8 +112,8 @@ export default function Index() {
                 {/* Sound on / off button */}
                 <Switch></Switch>
                 <SmallButton onPress={handlePlayButton} iconName={"volume-high"}/>
-                {/* Restart Button */}
-                <SmallButton onPress={handlePlayButton} iconName={"arrow-rotate-right"}/>
+                {/* Reset Button */}
+                <SmallButton onPress={handleResetButton} iconName={"arrow-rotate-right"}/>
             </View>
             <Text>Cycle Count: {currentCycle}</Text>
 
@@ -116,14 +128,12 @@ export default function Index() {
                     lineCap={"round"}
                     rotation={0}
                     duration={1000}
-                    prefill={0}
-                    style={{  }}>
+                    prefill={0}>
                     {() => (
                         <Text className={"color-[#168AAD] text-8xl"}>{breathProgress}</Text>
                     )}
                 </AnimatedCircularProgress>
             </View>
-
             <Text>Bluetooth connection</Text>
         </View>
     );
