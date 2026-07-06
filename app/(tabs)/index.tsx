@@ -27,18 +27,35 @@ export default function Index() {
 
     useEffect(() => {
 
+        const onePhase = (count: number) => {
+            const finishedPhase = breathProgress >= count
+            setBreathProgress(prevState => {
+                if (prevState < count) {return prevState + 1}
+                return 0
+            })
+            return finishedPhase
+        }
+
         if (pressedPlay) {
-            // 1. Increment breath progress by 1 per second.
+
             const interval = setInterval(() => {
-                setBreathProgress(prev => {
-                    if (prev < inhaleCount) {
-                        return prev + 1
-                    } else { //TODO: This needs to branch based on pause or stop
-                        clearInterval(interval)
-                        setPressedPlay(false)
-                        return 0
+
+                if (currentCycle < cycleCount) {
+                    if (isInhalePhase) {
+                        const finished = onePhase(inhaleCount)
+                        if (finished) { setIsInhalePhase(false) }
+                    } else {
+                        const finished = onePhase(exhaleCount)
+                        if (finished) {
+                            setIsInhalePhase(true)
+                            // At the end of exhale phase, a cycle is completed
+                            setCurrentCycle(prevState => prevState + 1)
+                        }
                     }
-                });
+                } else {
+                    clearInterval(interval)
+                    setPressedPlay(false)
+                }
             }, 1000)
 
             return () => {
