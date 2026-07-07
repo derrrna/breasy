@@ -1,10 +1,7 @@
-﻿import {Pressable, Switch, Text, View} from "react-native";
+﻿import {Switch, Text, View} from "react-native";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import Header from "@/app/components/header";
 import SmallButton from "@/app/components/smallButton";
-import {FontAwesome6} from "@expo/vector-icons";
 import {useEffect, useRef, useState} from "react";
-import {next} from "sucrase/dist/types/parser/tokenizer";
 
 export default function Index() {
 
