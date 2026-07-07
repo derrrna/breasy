@@ -3,7 +3,7 @@ import { getData } from "@/app/helpers/getData";
 import { storeData } from "@/app/helpers/storeData";
 import {KEYS} from "@/app/utils/keys";
 
-const useSettings = () => {
+export const useSettings = () => {
 
     // SETTINGS
     const [activePreset, setActivePreset] = useState("dbt_paced")
@@ -49,4 +49,13 @@ const useSettings = () => {
             storeData(KEYS.MUTE_SOUND, String(isMute)),
         ])
     }
+
+    return ({
+        activePreset,
+        setActivePreset,
+        customPreset,
+        setCustomPreset,
+        vibrationStrength,
+        setVibrationStrength,
+        isMute, setIsMute})
 }
