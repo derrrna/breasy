@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode} from "react";
+import React, {createContext, ReactNode, useContext} from "react";
 import { useSettings } from "@/app/hooks/useSettings";
 
 export interface settingsContextValue {
@@ -16,6 +16,14 @@ export interface settingsContextValue {
 }
 
 export const SettingsContext = createContext<settingsContextValue | null >(null);
+
+export function useSettingsContext(): settingsContextValue {
+    const context = useContext(SettingsContext);
+    if (!context) {
+        throw new Error("useSettingsContext must be used within a SettingsContextProvider");
+    }
+    return context;
+}
 
 export default function SettingsContextProvider({children}: {children: ReactNode}) {
     const settings = useSettings()

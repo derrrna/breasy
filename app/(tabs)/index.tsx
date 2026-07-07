@@ -2,14 +2,14 @@
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import SmallButton from "@/app/components/smallButton";
 import {useEffect, useRef, useState} from "react";
+import {useSettingsContext} from "@/app/store/settingsContext";
 
 export default function Index() {
 
-    //TODO: Change to not be hardcoded once settings implemented
+    const settingsContext = useSettingsContext();
+
     // CONFIG SETTINGS
-    const [inhaleCount, setInhaleCount] = useState(4)
-    const [exhaleCount, setExhaleCount] = useState(6)
-    const [cycleCount, setCycleCount] = useState(3)
+    const {inhaleCount, exhaleCount, cycleCount} = settingsContext.customPreset
     const [currentCycle, setCurrentCycle] = useState(0)
 
     // EXERCISE VISUAL

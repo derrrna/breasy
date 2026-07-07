@@ -1,8 +1,12 @@
 import Header from "@/app/components/header";
 import {ScrollView, Text, View} from 'react-native';
 import RadioButton from "@/app/components/radioButton";
+import {SettingsContext} from "@/app/store/settingsContext";
+import {useContext} from "react";
 
 export default function Settings(){
+
+    const settingsContext = useContext(SettingsContext);
 
     const handleRadioPress = () => {}
 
