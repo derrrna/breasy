@@ -1,9 +1,9 @@
 import {Tabs} from 'expo-router';
 import {FontAwesome, FontAwesome6} from "@expo/vector-icons";
-import PlayButton from "@/app/components/playButton";
+import PlayButton from "@/components/playButton";
 import React from "react";
-import SettingsContextProvider from "@/app/store/settingsContext";
-import ExerciseContextProvider from "@/app/store/exerciseContext";
+import SettingsContextProvider from "@/store/settingsContext";
+import ExerciseContextProvider from "@/store/exerciseContext";
 
 export default function TabLayout() {
     return (

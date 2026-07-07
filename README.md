@@ -21,12 +21,12 @@ A React Native breathing exercise app paired with **'Froggie**, a Bluetooth hapt
 ### Current
 
 - Play button →  triggers visual numeric countdown
+- Continuous cycle looping
+- Pause / Stop controls
 
 ### App Planned Features
 
 - Descending pitch audio tones synced to countdown
-- Continuous cycle looping
-- Pause / Stop controls
 - Mute / unmute toggle
 - Switchable breathing presets (box breathing, customisable inhale-exhale count)
 - Settings page (navigation exists, no functionality yet)

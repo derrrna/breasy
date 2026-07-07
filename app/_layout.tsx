@@ -2,7 +2,7 @@ import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import "./global.css";
 import {SafeAreaProvider} from "react-native-safe-area-context";
-import Header from "@/app/components/header";
+import Header from "@/components/header";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({

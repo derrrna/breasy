@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import { getData } from "@/app/helpers/getData";
-import { storeData } from "@/app/helpers/storeData";
-import {KEYS} from "@/app/utils/keys";
+import { getData } from "@/helpers/getData";
+import { storeData } from "@/helpers/storeData";
+import {KEYS} from "@/utils/keys";
 
 export const useSettings = () => {
 

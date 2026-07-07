@@ -6,7 +6,7 @@ export const getData = async (key: string) => {
         if (value !== null) {
             return value
         } else {
-            return "UNDEFINED"
+            return undefined
         }
     } catch (e) {
         //TODO

@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useContext} from "react";
-import { useSettings } from "@/app/hooks/useSettings";
+import { useSettings } from "@/hooks/useSettings";
 
 export interface settingsContextValue {
     activePreset: string;

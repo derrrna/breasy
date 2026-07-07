@@ -2,14 +2,11 @@ import {Animated, Pressable} from "react-native";
 import {FontAwesome6} from "@expo/vector-icons";
 import React, {useRef} from "react";
 
-type FontAwesomeIconName = React.ComponentProps<typeof FontAwesome6>["name"];
-
-interface SmallButtonProps {
+interface ResetButtonProps {
     onPress: () => void;
-    iconName: FontAwesomeIconName;
 }
 
-export default function SmallButton(props: SmallButtonProps) {
+export default function ResetButton(props: ResetButtonProps) {
     const colorAnim = useRef(new Animated.Value(0)).current;
 
     const onPressIn = () => Animated.timing(colorAnim, { toValue: 1, duration: 100, useNativeDriver: false }).start();
@@ -23,7 +20,7 @@ export default function SmallButton(props: SmallButtonProps) {
     return (
         <Pressable onPress={props.onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
             <Animated.View style={{ backgroundColor }} className={"items-center rounded-xl justify-center w-16 h-16"}>
-                <FontAwesome6 name={props.iconName} color={"#FEFEFE"} size={28} />
+                <FontAwesome6 name={"arrow-rotate-right"} color={"#FEFEFE"} size={28} />
             </Animated.View>
         </Pressable>
     );

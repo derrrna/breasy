@@ -1,5 +1,5 @@
 import {View} from "react-native";
-import Header from "@/app/components/header";
+import Header from "@/components/header";
 
 export default function Froggie() {
     return (

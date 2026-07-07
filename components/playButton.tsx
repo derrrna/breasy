@@ -2,7 +2,7 @@ import {Pressable, View} from "react-native";
 import {FontAwesome6} from "@expo/vector-icons";
 import {Text} from "react-native";
 import React from "react";
-import {useExerciseContext} from "@/app/store/exerciseContext";
+import {useExerciseContext} from "@/store/exerciseContext";
 
 export default function PlayButton() {
 

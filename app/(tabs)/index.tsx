@@ -1,105 +1,11 @@
-﻿import {Switch, Text, View} from "react-native";
+import {Switch, Text, View} from "react-native";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import SmallButton from "@/app/components/smallButton";
-import {useEffect, useRef, useState} from "react";
-import {useSettingsContext} from "@/app/store/settingsContext";
+import ResetButton from "@/components/resetButton";
+import {useExerciseContext} from "@/store/exerciseContext";
 
 export default function Index() {
 
-    const settingsContext = useSettingsContext();
-
-    // CONFIG SETTINGS
-    const {inhaleCount, exhaleCount, cycleCount} = settingsContext.customPreset
-    const [currentCycle, setCurrentCycle] = useState(0)
-
-    // EXERCISE VISUAL
-    const [pressedPlay, setPressedPlay] = useState(false)
-    const [breathProgress, setBreathProgress] = useState(0)
-    const [isInhalePhase, setIsInhalePhase] = useState(true)
-    const [phaseCount, setPhaseCount] = useState(inhaleCount)
-
-    // NOTE: Redundancy
-    const currentCycleCopy = useRef(currentCycle)
-    const isInhalePhaseCopy = useRef(isInhalePhase)
-    const breathProgressCopy = useRef(breathProgress)
-    const inhaleCountCopy = useRef(inhaleCount)
-    const exhaleCountCopy = useRef(exhaleCount)
-    const cycleCountCopy = useRef(cycleCount)
-
-    inhaleCountCopy.current = inhaleCount
-    exhaleCountCopy.current = exhaleCount
-    cycleCountCopy.current = cycleCount
-
-    const handlePlayButton = () => {
-        setPressedPlay(true)
-    }
-
-    // RESET BUTTON
-    const handleResetButton = () => {
-        setPressedPlay(false)
-        setBreathProgress(0)
-        setIsInhalePhase(true)
-        setPhaseCount(inhaleCount)
-        setCurrentCycle(0)
-        breathProgressCopy.current = 0
-        isInhalePhaseCopy.current = true
-        currentCycleCopy.current = 0
-    }
-
-    useEffect(() => {
-
-        // Conducts one phase, exhale OR inhale. Increments and completion-check
-        // happen in the same tick so no second is lost resetting to 0.
-        const onePhase = (count: number) => {
-
-            const nextProgress = breathProgressCopy.current + 1
-            const finishedPhase = nextProgress >= count
-
-            setBreathProgress(nextProgress)
-            setPhaseCount(count)
-            breathProgressCopy.current = finishedPhase ? 0 : nextProgress
-
-            return finishedPhase
-        }
-
-        // Once play button has been pressed, run:
-        if (pressedPlay) {
-
-            const interval = setInterval(() => {
-
-                if (currentCycleCopy.current < cycleCountCopy.current) {
-
-                    // Inhale phase
-                    if (isInhalePhaseCopy.current) {
-                        const finished = onePhase(inhaleCountCopy.current)
-                        if (finished) {
-                            setIsInhalePhase(false)
-                            isInhalePhaseCopy.current = false
-                        }
-
-                    // Exhale phase
-                    } else {
-                        const finished = onePhase(exhaleCountCopy.current)
-                        if (finished) {
-                            setIsInhalePhase(true)
-                            isInhalePhaseCopy.current = true
-                            // At the end of exhale phase, a cycle is completed
-                            setCurrentCycle(currentCycleCopy.current + 1)
-                            currentCycleCopy.current = currentCycleCopy.current + 1
-                        }
-                    }
-                } else {
-                    clearInterval(interval)
-                    setPressedPlay(false)
-                }
-
-            }, 1000)
-
-            return () => {
-                clearInterval(interval)
-            }
-        }
-    }, [pressedPlay])
+    const {breathProgress, phaseCount, currentCycle, reset} = useExerciseContext();
 
     return (
         <View className={"flex flex-col w-full bg-white h-full items-center justify-center"}>
@@ -108,9 +14,8 @@ export default function Index() {
             <View className={"flex-row items-center justify-center px-6 pb-10 "}>
                 {/* Sound on / off button */}
                 <Switch></Switch>
-                <SmallButton onPress={handlePlayButton} iconName={"volume-high"}/>
                 {/* Reset Button */}
-                <SmallButton onPress={handleResetButton} iconName={"arrow-rotate-right"}/>
+                <ResetButton onPress={reset}/>
             </View>
             <Text>Cycle Count: {currentCycle}</Text>
 
