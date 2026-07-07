@@ -1,13 +1,13 @@
 export const KEYS = {
-    // Current exercise being run
-    ACTIVE_PRESET: '',
+    // Last selected breathing preset
+    ACTIVE_PRESET: 'settings.activePreset',
 
     // Stores user's custom inhale, exhale and cycle.
-    CUSTOM_PRESET: '',
+    CUSTOM_PRESET: 'settings.customPreset',
 
     // Vibration strength of device (PWM)
-    VIBRATION_STRENGTH: '',
+    VIBRATION_STRENGTH: 'settings.vibrationStrength',
 
     // Whether toggle mute is on or off
-    MUTE: '',
+    MUTE: 'settings.mute',
 }
