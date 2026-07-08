@@ -3,13 +3,14 @@ import { useFonts } from "expo-font";
 import "./global.css";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import Header from "@/components/header";
+import LoadingScreen from "@/components/loadingScreen";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
     vividly: require("../assets/fonts/Vividly-Regular.otf"),
   });
 
-  if (!fontsLoaded) return null;
+  if (!fontsLoaded) return <LoadingScreen/>;
 
   return (
       <SafeAreaProvider>
