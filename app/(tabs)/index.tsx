@@ -2,6 +2,7 @@ import {Switch, Text, View} from "react-native";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import ResetButton from "@/components/resetButton";
 import {useExerciseContext} from "@/store/exerciseContext";
+import SoundSwitch from "@/components/soundSwitch";
 
 export default function Index() {
 
@@ -13,7 +14,7 @@ export default function Index() {
             {/* CONFIG */}
             <View className={"flex-row items-center justify-center px-6 pb-10 "}>
                 {/* Sound on / off button */}
-                <Switch></Switch>
+                <SoundSwitch/>
                 {/* Reset Button */}
                 <ResetButton onPress={reset}/>
             </View>
