@@ -28,6 +28,8 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
 
     const settingsContext = useSettingsContext();
     const {inhaleCount, exhaleCount, cycleCount} = settingsContext.customPreset
+    const isMute = settingsContext.isMute;
+
     const [currentCycle, setCurrentCycle] = useState(0)
     const [isRunning, setIsRunning] = useState(false)
     const [breathProgress, setBreathProgress] = useState(0)
@@ -41,10 +43,12 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
     const inhaleCountCopy = useRef(inhaleCount)
     const exhaleCountCopy = useRef(exhaleCount)
     const cycleCountCopy = useRef(cycleCount)
+    const isMuteCopy = useRef(isMute)
 
     inhaleCountCopy.current = inhaleCount
     exhaleCountCopy.current = exhaleCount
     cycleCountCopy.current = cycleCount
+    isMuteCopy.current = isMute
 
     // PLAY BUTTON
     const toggleRunning = () => {
@@ -79,12 +83,13 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
             setBreathProgress(nextProgress)
             setPhaseCount(count)
 
-            //TODO
-            void player.seekTo(0);
-            player.play();
+            //TODO Replace sound
+            if (isMuteCopy.current) {
+                void player.seekTo(0);
+                player.play();
+            }
 
             breathProgressCopy.current = finishedPhase ? 0 : nextProgress
-
             return finishedPhase
         }
 
