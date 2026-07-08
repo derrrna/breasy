@@ -3,22 +3,23 @@ import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import ResetButton from "@/components/resetButton";
 import {useExerciseContext} from "@/store/exerciseContext";
 import SoundSwitch from "@/components/soundSwitch";
+import {useSettingsContext} from "@/store/settingsContext";
 
 export default function Index() {
 
     const {breathProgress, phaseCount, currentCycle, reset} = useExerciseContext();
+    const {customPreset} = useSettingsContext();
 
     return (
-        <View className={"flex flex-col w-full bg-white h-full items-center justify-center"}>
+        <View className={"flex-col w-full bg-white h-full items-center "}>
 
             {/* CONFIG */}
-            <View className={"flex-row items-center justify-center px-6 pb-10 "}>
+            <View className={"flex-row w-full px-6 pt-16 mb-10 justify-between"}>
                 {/* Sound on / off button */}
                 <SoundSwitch/>
                 {/* Reset Button */}
                 <ResetButton onPress={reset}/>
             </View>
-            <Text>Cycle Count: {currentCycle}</Text>
 
             {/* EXERCISE VISUAL */}
             <View>
@@ -33,7 +34,12 @@ export default function Index() {
                     duration={1000}
                     prefill={0}>
                     {() => (
-                        <Text className={"color-[#168AAD] text-8xl"}>{breathProgress}</Text>
+                        <View className={"justify-center items-center"}>
+                            <Text className={"color-[#168AAD] text-8xl"}>{breathProgress}</Text>
+                            <Text className={"color-[#168AAD] text-xl"}>
+                                Cycle: {`${currentCycle} / ${customPreset.cycleCount}` }
+                            </Text>
+                        </View>
                     )}
                 </AnimatedCircularProgress>
             </View>
