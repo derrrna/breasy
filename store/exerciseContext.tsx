@@ -1,5 +1,6 @@
 import React, {createContext, ReactNode, useContext, useEffect, useRef, useState} from "react";
 import {useSettingsContext} from "@/store/settingsContext";
+import {useAudioPlayer} from "expo-audio";
 
 export interface exerciseContextValue {
     isRunning: boolean;
@@ -24,6 +25,7 @@ export function useExerciseContext(): exerciseContextValue {
 }
 
 export default function ExerciseContextProvider({children}: {children: ReactNode}) {
+
     const settingsContext = useSettingsContext();
     const {inhaleCount, exhaleCount, cycleCount} = settingsContext.customPreset
     const [currentCycle, setCurrentCycle] = useState(0)
@@ -44,10 +46,12 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
     exhaleCountCopy.current = exhaleCount
     cycleCountCopy.current = cycleCount
 
+    // PLAY BUTTON
     const toggleRunning = () => {
         setIsRunning(prev => !prev)
     }
 
+    // RESET BUTTON
     const reset = () => {
         setIsRunning(false)
         setBreathProgress(0)
@@ -58,6 +62,10 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
         isInhalePhaseCopy.current = true
         currentCycleCopy.current = 0
     }
+
+    // SOUND
+    const testSound = require("@/assets/audio/TEST_SOUND.mp3");
+    const player = useAudioPlayer(testSound);
 
     useEffect(() => {
 
@@ -70,6 +78,11 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
 
             setBreathProgress(nextProgress)
             setPhaseCount(count)
+
+            //TODO
+            void player.seekTo(0);
+            player.play();
+
             breathProgressCopy.current = finishedPhase ? 0 : nextProgress
 
             return finishedPhase
