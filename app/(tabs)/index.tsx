@@ -4,6 +4,8 @@ import ResetButton from "@/components/resetButton";
 import {useExerciseContext} from "@/store/exerciseContext";
 import SoundSwitch from "@/components/soundSwitch";
 import {useSettingsContext} from "@/store/settingsContext";
+import {Circle} from "react-native-svg";
+import BluetoothButton from "@/components/bluetoothButton";
 
 export default function Index() {
 
@@ -22,7 +24,7 @@ export default function Index() {
             </View>
 
             {/* EXERCISE VISUAL */}
-            <View>
+            <View className={"mb-10"}>
                 <AnimatedCircularProgress
                     size={350}
                     width={20}
@@ -30,6 +32,9 @@ export default function Index() {
                     tintColor={"#76C893"}
                     backgroundColor={"#76C89370"}
                     lineCap={"round"}
+                    renderCap={({ center }) => (
+                        <Circle cx={center.x} cy={center.y} r="10" fill="#4D8261" />
+                    )}
                     rotation={0}
                     duration={1000}
                     prefill={0}>
@@ -43,7 +48,9 @@ export default function Index() {
                     )}
                 </AnimatedCircularProgress>
             </View>
-            <Text>Bluetooth connection</Text>
+
+            {/* BLUETOOTH BUTTON */}
+            <BluetoothButton/>
         </View>
     );
 }
