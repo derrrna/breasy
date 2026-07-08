@@ -24,6 +24,7 @@ export function useExerciseContext(): exerciseContextValue {
     return context;
 }
 
+//TODO this file is getting too big. separate out.
 export default function ExerciseContextProvider({children}: {children: ReactNode}) {
 
     const settingsContext = useSettingsContext();
@@ -83,7 +84,7 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
             setBreathProgress(nextProgress)
             setPhaseCount(count)
 
-            //TODO Replace sound
+            //TODO Replace sound. also check what happens if background audio playback
             if (isMuteCopy.current) {
                 void player.seekTo(0);
                 player.play();
