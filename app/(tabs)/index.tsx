@@ -6,6 +6,7 @@ import SoundSwitch from "@/components/soundSwitch";
 import {useSettingsContext} from "@/store/settingsContext";
 import {Circle} from "react-native-svg";
 import BluetoothButton from "@/components/bluetoothButton";
+import PlayButton from "@/components/playButton";
 
 export default function Index() {
 
@@ -49,8 +50,8 @@ export default function Index() {
                 </AnimatedCircularProgress>
             </View>
 
-            {/* BLUETOOTH BUTTON */}
-            <BluetoothButton/>
+            {/* PLAY BUTTON */}
+            <PlayButton/>
         </View>
     );
 }

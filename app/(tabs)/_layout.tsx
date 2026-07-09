@@ -34,14 +34,6 @@ export default function TabLayout() {
                         }}
                     />
 
-                    {/* Play-Pause Button */}
-                    <Tabs.Screen
-                        name={"froggie"}
-                        options={{
-                            tabBarButton: () => <PlayButton/>
-                        }}
-                    />
-
                     {/* SETTINGS PAGE */}
                     <Tabs.Screen
                         name={"settings"}
