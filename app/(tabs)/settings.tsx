@@ -17,7 +17,7 @@ export default function Settings(){
     }
 
     return (
-        <ScrollView contentContainerClassName={"justify-center items-center px-8"}>
+        <ScrollView className={"flex-1"} contentContainerClassName={"grow justify-center items-center px-8"}>
 
             <Text className={"text-3xl py-6"}>Settings</Text>
 
