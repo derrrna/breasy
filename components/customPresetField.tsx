@@ -9,13 +9,18 @@ export default function CustomPresetField(props: CustomPresetFieldProps) {
 
     const settingsContext = useSettingsContext();
 
+    const handleCustomChange = () => {
+        settingsContext.setCustomPreset
+    }
+
+    // TODO Probably need to split up custom preset.
     return (
         <View className={"flex-row items-center"}>
             <Text className={"mr-3"}>{props.name}:</Text>
             <TextInput
                 className={"border-b-2 h-14 w-16 text-black text-center px-1"}
-                placeholder={"4"}
                 //TODO onChange
+                onChange={handleCustomChange}
                 value={settingsContext?.customPreset.inhaleCount.toString()}
                 keyboardType={"numeric"}/>
         </View>
