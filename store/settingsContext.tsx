@@ -1,16 +1,15 @@
 import React, {createContext, ReactNode, useContext} from "react";
 import { useSettings } from "@/hooks/useSettings";
+import {getPreset, Preset, PresetNames} from "@/utils/presets";
 
 export interface settingsContextValue {
-    activePreset: string;
-    setActivePreset: (activePreset: string) => void;
-
+    activePreset: PresetNames;
+    activePresetInfo: Preset;
+    setActivePreset: (activePreset: PresetNames) => void;
     customPreset: { inhaleCount: number, exhaleCount: number, cycleCount: number };
     setCustomPreset: (customPreset: { inhaleCount: number, exhaleCount: number, cycleCount: number }) => void;
-
     vibrationStrength: number;
     setVibrationStrength: (vibrationStrength: number) => void;
-
     isMute: boolean;
     setIsMute: (isMute: boolean) => void;
 }
@@ -27,12 +26,14 @@ export function useSettingsContext(): settingsContextValue {
 
 export default function SettingsContextProvider({children}: {children: ReactNode}) {
     const settings = useSettings()
+    const activePresetInfo = getPreset(settings.activePreset, settings.customPreset)
 
     return (
         <SettingsContext.Provider
             value={{
                 activePreset: settings.activePreset,
                 setActivePreset: settings.setActivePreset,
+                activePresetInfo: activePresetInfo,
 
                 customPreset: settings.customPreset,
                 setCustomPreset: settings.setCustomPreset,

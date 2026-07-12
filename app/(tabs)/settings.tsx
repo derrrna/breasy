@@ -1,17 +1,24 @@
-import Header from "@/components/header";
-import {ScrollView, Text, TextInput, View} from 'react-native';
+import {ScrollView, Text, View} from 'react-native';
 import {SettingsContext} from "@/store/settingsContext";
 import {useContext} from "react";
 import Slider from "@react-native-community/slider";
 import CustomPresetField from "@/components/customPresetField";
 import {RadioButton} from "react-native-paper";
+import {PRESET_NAMES, PresetNames} from "@/utils/presets";
+
+// TODO: risky `as` - widens PRESET_NAMES's element type so .includes(value)
+// accepts a plain string. Revisit if PRESET_NAMES's shape ever changes.
+const isPresetName = (value: string): value is PresetNames =>
+    (PRESET_NAMES as readonly string[]).includes(value);
 
 export default function Settings(){
 
     const settingsContext = useContext(SettingsContext);
 
     const handleRadioPress = (value: string) => {
-        settingsContext?.setActivePreset(value);
+        if (isPresetName(value)) {
+            settingsContext?.setActivePreset(value);
+        }
     }
 
     const handleCustomChange = () => {}
@@ -23,7 +30,7 @@ export default function Settings(){
 
             <View className={'flex-col w-full'}>
                 <Text className={"text-xl my-3"}>Breathing Exercise</Text>
-                <RadioButton.Group onValueChange={handleRadioPress} value={settingsContext?.activePreset ?? ''}>
+                <RadioButton.Group onValueChange={handleRadioPress} value={settingsContext?.activePreset ?? "paced"}>
                     <View className={"pl-5"}>
                         <RadioButton.Item
                             label={"Paced Breathing"}

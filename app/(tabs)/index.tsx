@@ -5,13 +5,12 @@ import {useExerciseContext} from "@/store/exerciseContext";
 import SoundSwitch from "@/components/soundSwitch";
 import {useSettingsContext} from "@/store/settingsContext";
 import {Circle} from "react-native-svg";
-import BluetoothButton from "@/components/bluetoothButton";
 import PlayButton from "@/components/playButton";
 
 export default function Index() {
 
     const {breathProgress, phaseCount, currentCycle, reset} = useExerciseContext();
-    const {customPreset} = useSettingsContext();
+    const activePresetInfo = useSettingsContext().activePresetInfo
 
     return (
         <View className={"flex-col w-full bg-white h-full items-center "}>
@@ -43,7 +42,7 @@ export default function Index() {
                         <View className={"justify-center items-center"}>
                             <Text className={"color-[#168AAD] text-8xl"}>{breathProgress}</Text>
                             <Text className={"color-[#168AAD] text-xl"}>
-                                Cycle: {`${currentCycle} / ${customPreset.cycleCount}` }
+                                Cycle: {`${currentCycle} / ${activePresetInfo.cycleCount}` }
                             </Text>
                         </View>
                     )}

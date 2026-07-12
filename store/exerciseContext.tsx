@@ -5,12 +5,10 @@ import {useAudioPlayer} from "expo-audio";
 export interface exerciseContextValue {
     isRunning: boolean;
     toggleRunning: () => void;
-
     breathProgress: number;
     phaseCount: number;
     isInhalePhase: boolean;
     currentCycle: number;
-
     reset: () => void;
 }
 
@@ -28,7 +26,7 @@ export function useExerciseContext(): exerciseContextValue {
 export default function ExerciseContextProvider({children}: {children: ReactNode}) {
 
     const settingsContext = useSettingsContext();
-    const {inhaleCount, exhaleCount, cycleCount} = settingsContext.customPreset
+    const {inhaleCount, exhaleCount, cycleCount} = settingsContext.activePresetInfo
     const isMute = settingsContext.isMute;
 
     const [currentCycle, setCurrentCycle] = useState(0)
@@ -67,6 +65,11 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
         isInhalePhaseCopy.current = true
         currentCycleCopy.current = 0
     }
+
+    // Note: Resets everytime the exercise is changed.
+    useEffect(() => {
+        reset()
+    }, [settingsContext.activePresetInfo])
 
     // SOUND
     const testSound = require("@/assets/audio/TEST_SOUND.mp3");

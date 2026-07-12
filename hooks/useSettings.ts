@@ -2,11 +2,12 @@ import {useEffect, useState} from "react";
 import { getData } from "@/helpers/getData";
 import { storeData } from "@/helpers/storeData";
 import {KEYS} from "@/utils/keys";
+import {PresetNames} from "@/utils/presets";
 
 export const useSettings = () => {
 
     // SETTINGS
-    const [activePreset, setActivePreset] = useState("dbt_paced")
+    const [activePreset, setActivePreset] = useState<PresetNames>("paced")
     const [customPreset, setCustomPreset] = useState({
         inhaleCount: 4,
         exhaleCount: 6,
@@ -29,7 +30,8 @@ export const useSettings = () => {
                 getData(KEYS.MUTE_SOUND),
             ])
 
-            if (active!== undefined) setActivePreset(active);
+            //TODO
+            if (active!== undefined) setActivePreset("paced");
             // Stored as object (inhale, exhale, cycle count)
             if (custom !== undefined) setCustomPreset(JSON.parse(custom));
             if (vibration !== undefined) setVibrationStrength(Number(vibration));
