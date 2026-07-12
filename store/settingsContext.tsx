@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useContext} from "react";
+import React, {createContext, ReactNode, useContext, useMemo} from "react";
 import { useSettings } from "@/hooks/useSettings";
 import {getPreset, Preset, PresetNames} from "@/utils/presets";
 
@@ -6,8 +6,12 @@ export interface settingsContextValue {
     activePreset: PresetNames;
     activePresetInfo: Preset;
     setActivePreset: (activePreset: PresetNames) => void;
-    customPreset: { inhaleCount: number, exhaleCount: number, cycleCount: number };
-    setCustomPreset: (customPreset: { inhaleCount: number, exhaleCount: number, cycleCount: number }) => void;
+    inhaleCount: number;
+    setInhaleCount: (inhaleCount: number) => void;
+    exhaleCount: number;
+    setExhaleCount: (exhaleCount: number) => void;
+    cycleCount: number;
+    setCycleCount: (cycleCount: number) => void;
     vibrationStrength: number;
     setVibrationStrength: (vibrationStrength: number) => void;
     isMute: boolean;
@@ -26,7 +30,12 @@ export function useSettingsContext(): settingsContextValue {
 
 export default function SettingsContextProvider({children}: {children: ReactNode}) {
     const settings = useSettings()
-    const activePresetInfo = getPreset(settings.activePreset, settings.customPreset)
+    const customPresetInfo = useMemo(() => ({
+        inhaleCount: settings.inhaleCount,
+        exhaleCount: settings.exhaleCount,
+        cycleCount: settings.cycleCount,
+    }), [settings.inhaleCount, settings.exhaleCount, settings.cycleCount])
+    const activePresetInfo = getPreset(settings.activePreset, customPresetInfo)
 
     return (
         <SettingsContext.Provider
@@ -35,8 +44,12 @@ export default function SettingsContextProvider({children}: {children: ReactNode
                 setActivePreset: settings.setActivePreset,
                 activePresetInfo: activePresetInfo,
 
-                customPreset: settings.customPreset,
-                setCustomPreset: settings.setCustomPreset,
+                inhaleCount: settings.inhaleCount,
+                setInhaleCount: settings.setInhaleCount,
+                exhaleCount: settings.exhaleCount,
+                setExhaleCount: settings.setExhaleCount,
+                cycleCount: settings.cycleCount,
+                setCycleCount: settings.setCycleCount,
 
                 vibrationStrength: settings.vibrationStrength,
                 setVibrationStrength: settings.setVibrationStrength,

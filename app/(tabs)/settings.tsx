@@ -16,8 +16,6 @@ export default function Settings(){
         }
     }
 
-    const handleCustomChange = () => {}
-
     return (
         <ScrollView className={"flex-1"} contentContainerClassName={"grow justify-center items-center px-8"}>
 
@@ -57,9 +55,18 @@ export default function Settings(){
 
             <View className={'flex-col w-full'}>
                 <Text className={"text-xl my-3"}>Custom</Text>
-                <CustomPresetField name={"Inhale Count"}/>
-                <CustomPresetField name={"Exhale Count"}/>
-                <CustomPresetField name={"Cycle Count"}/>
+                <CustomPresetField
+                    name={"Inhale Count"}
+                    value={settingsContext?.inhaleCount ?? 4}
+                    onChangeValue={(value) => settingsContext?.setInhaleCount(value)}/>
+                <CustomPresetField
+                    name={"Exhale Count"}
+                    value={settingsContext?.exhaleCount ?? 6}
+                    onChangeValue={(value) => settingsContext?.setExhaleCount(value)}/>
+                <CustomPresetField
+                    name={"Cycle Count"}
+                    value={settingsContext?.cycleCount ?? 3}
+                    onChangeValue={(value) => settingsContext?.setCycleCount(value)}/>
             </View>
 
             <View className={'flex-col w-full pt-8'}>
@@ -69,7 +76,7 @@ export default function Settings(){
                     maximumValue={5}
                     step={1}
                     renderStepNumber={true}
-                    //TODO
+                    value={settingsContext?.vibrationStrength}
                     onValueChange={settingsContext?.setVibrationStrength}
                 />
             </View>

@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import { getData } from "@/helpers/getData";
 import { storeData } from "@/helpers/storeData";
 import {KEYS} from "@/utils/keys";
-import {isPresetName, Preset, PresetNames} from "@/utils/presets";
+import {isPresetName, PresetNames} from "@/utils/presets";
 
 function useSyncToStorage(key: string, value: string, isLoaded: boolean) {
     useEffect(() => {
@@ -15,11 +15,9 @@ export const useSettings = () => {
 
     const [isLoaded, setIsLoaded] = useState(false)
     const [activePreset, setActivePreset] = useState<PresetNames>("paced")
-    const [customPreset, setCustomPreset] = useState<Preset>({
-        inhaleCount: 4,
-        exhaleCount: 6,
-        cycleCount: 3
-    })
+    const [inhaleCount, setInhaleCount] = useState(4)
+    const [exhaleCount, setExhaleCount] = useState(6)
+    const [cycleCount, setCycleCount] = useState(3)
     // TODO: When hardware is implemented, find mid value.
     const [vibrationStrength, setVibrationStrength] = useState(0)
     const [isMute, setIsMute] = useState(false)
@@ -30,16 +28,19 @@ export const useSettings = () => {
 
         // Wait for all settings to be retrieved.
         const loadSettings = async () => {
-            const [active, custom, vibration, mute] = await Promise.all([
+            const [active, inhale, exhale, cycle, vibration, mute] = await Promise.all([
                 getData(KEYS.ACTIVE_PRESET),
-                getData(KEYS.CUSTOM_PRESET),
+                getData(KEYS.CUSTOM_INHALE_COUNT),
+                getData(KEYS.CUSTOM_EXHALE_COUNT),
+                getData(KEYS.CUSTOM_CYCLE_COUNT),
                 getData(KEYS.VIBRATION_STRENGTH),
                 getData(KEYS.MUTE_SOUND),
             ])
 
             if (active !== undefined && isPresetName(active)) setActivePreset(active);
-            // TODO Stored as object (inhale, exhale, cycle count)
-            if (custom !== undefined) setCustomPreset(JSON.parse(custom));
+            if (inhale !== undefined) setInhaleCount(Number(inhale));
+            if (exhale !== undefined) setExhaleCount(Number(exhale));
+            if (cycle !== undefined) setCycleCount(Number(cycle));
             if (vibration !== undefined) setVibrationStrength(Number(vibration));
             if (mute !== undefined) setIsMute(mute === "true");
 
@@ -50,15 +51,21 @@ export const useSettings = () => {
 
     // Updating Settings
     useSyncToStorage(KEYS.ACTIVE_PRESET, activePreset, isLoaded)
-    useSyncToStorage(KEYS.CUSTOM_PRESET, JSON.stringify(customPreset), isLoaded)
+    useSyncToStorage(KEYS.CUSTOM_INHALE_COUNT, String(inhaleCount), isLoaded)
+    useSyncToStorage(KEYS.CUSTOM_EXHALE_COUNT, String(exhaleCount), isLoaded)
+    useSyncToStorage(KEYS.CUSTOM_CYCLE_COUNT, String(cycleCount), isLoaded)
     useSyncToStorage(KEYS.VIBRATION_STRENGTH, String(vibrationStrength), isLoaded)
     useSyncToStorage(KEYS.MUTE_SOUND, String(isMute), isLoaded)
 
     return ({
         activePreset,
         setActivePreset,
-        customPreset,
-        setCustomPreset,
+        inhaleCount,
+        setInhaleCount,
+        exhaleCount,
+        setExhaleCount,
+        cycleCount,
+        setCycleCount,
         vibrationStrength,
         setVibrationStrength,
         isMute, setIsMute})

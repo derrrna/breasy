@@ -77,12 +77,9 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
 
     useEffect(() => {
 
-        // Conducts one phase, exhale OR inhale. Increments and completion-check
-        // happen in the same tick so no second is lost resetting to 0.
+        // Conducts one tick's increment for whichever phase is current.
         const onePhase = (count: number) => {
-
             const nextProgress = breathProgressCopy.current + 1
-            const finishedPhase = nextProgress >= count
 
             setBreathProgress(nextProgress)
             setPhaseCount(count)
@@ -93,8 +90,7 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
                 player.play();
             }
 
-            breathProgressCopy.current = finishedPhase ? 0 : nextProgress
-            return finishedPhase
+            breathProgressCopy.current = nextProgress
         }
 
         // Once running, run:
@@ -102,31 +98,32 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
 
             const interval = setInterval(() => {
 
-                if (currentCycleCopy.current < cycleCountCopy.current) {
-
-                    // Inhale phase
+                // If last tick's increment already reached the current
+                // phase's target, flip now - before this tick's increment -
+                // so the completed count (e.g. 4/4) stays on screen, in its
+                // own phase's color, for one full tick before switching.
+                const currentCount = isInhalePhaseCopy.current ? inhaleCountCopy.current : exhaleCountCopy.current
+                if (breathProgressCopy.current >= currentCount) {
+                    breathProgressCopy.current = 0
                     if (isInhalePhaseCopy.current) {
-                        const finished = onePhase(inhaleCountCopy.current)
-                        if (finished) {
-                            setIsInhalePhase(false)
-                            isInhalePhaseCopy.current = false
-                        }
-
-                    // Exhale phase
+                        setIsInhalePhase(false)
+                        isInhalePhaseCopy.current = false
                     } else {
-                        const finished = onePhase(exhaleCountCopy.current)
-                        if (finished) {
-                            setIsInhalePhase(true)
-                            isInhalePhaseCopy.current = true
-                            // At the end of exhale phase, a cycle is completed
-                            setCurrentCycle(currentCycleCopy.current + 1)
-                            currentCycleCopy.current = currentCycleCopy.current + 1
-                        }
+                        setIsInhalePhase(true)
+                        isInhalePhaseCopy.current = true
+                        // A full cycle just completed.
+                        setCurrentCycle(currentCycleCopy.current + 1)
+                        currentCycleCopy.current = currentCycleCopy.current + 1
                     }
-                } else {
+                }
+
+                if (currentCycleCopy.current >= cycleCountCopy.current) {
                     clearInterval(interval)
                     setIsRunning(false)
+                    return
                 }
+
+                onePhase(isInhalePhaseCopy.current ? inhaleCountCopy.current : exhaleCountCopy.current)
 
             }, 1000)
 
