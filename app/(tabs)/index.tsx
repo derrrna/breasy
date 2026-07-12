@@ -12,9 +12,6 @@ export default function Index() {
 
     const {breathProgress, phaseCount, currentCycle, reset, isInhalePhase} = useExerciseContext();
     const activePresetInfo = useSettingsContext().activePresetInfo
-
-    // Crossfades quickly between inhale (0) and exhale (1) colors whenever
-    // isInhalePhase flips, instead of snapping instantly.
     const phaseColorAnim = useRef(new Animated.Value(isInhalePhase ? 0 : 1)).current;
 
     useEffect(() => {
@@ -60,6 +57,8 @@ export default function Index() {
                             <Text className={"color-[#168AAD] text-xl"}>
                                 Cycle: {`${currentCycle} / ${activePresetInfo.cycleCount}` }
                             </Text>
+                            {/* TODO change to an icon */}
+                            <Text>{isInhalePhase ? "INHALE" : "EXHALE"}</Text>
                         </View>
                     )}
                 </AnimatedCircularProgress>
