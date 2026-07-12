@@ -4,12 +4,7 @@ import {useContext} from "react";
 import Slider from "@react-native-community/slider";
 import CustomPresetField from "@/components/customPresetField";
 import {RadioButton} from "react-native-paper";
-import {PRESET_NAMES, PresetNames} from "@/utils/presets";
-
-// TODO: risky `as` - widens PRESET_NAMES's element type so .includes(value)
-// accepts a plain string. Revisit if PRESET_NAMES's shape ever changes.
-const isPresetName = (value: string): value is PresetNames =>
-    (PRESET_NAMES as readonly string[]).includes(value);
+import {isPresetName} from "@/utils/presets";
 
 export default function Settings(){
 

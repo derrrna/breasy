@@ -2,13 +2,20 @@ import {useEffect, useState} from "react";
 import { getData } from "@/helpers/getData";
 import { storeData } from "@/helpers/storeData";
 import {KEYS} from "@/utils/keys";
-import {PresetNames} from "@/utils/presets";
+import {isPresetName, Preset, PresetNames} from "@/utils/presets";
+
+function useSyncToStorage(key: string, value: string, isLoaded: boolean) {
+    useEffect(() => {
+        if (!isLoaded) return
+        storeData(key, value)
+    }, [value, isLoaded])
+}
 
 export const useSettings = () => {
 
-    // SETTINGS
+    const [isLoaded, setIsLoaded] = useState(false)
     const [activePreset, setActivePreset] = useState<PresetNames>("paced")
-    const [customPreset, setCustomPreset] = useState({
+    const [customPreset, setCustomPreset] = useState<Preset>({
         inhaleCount: 4,
         exhaleCount: 6,
         cycleCount: 3
@@ -30,27 +37,22 @@ export const useSettings = () => {
                 getData(KEYS.MUTE_SOUND),
             ])
 
-            //TODO
-            if (active!== undefined) setActivePreset("paced");
-            // Stored as object (inhale, exhale, cycle count)
+            if (active !== undefined && isPresetName(active)) setActivePreset(active);
+            // TODO Stored as object (inhale, exhale, cycle count)
             if (custom !== undefined) setCustomPreset(JSON.parse(custom));
             if (vibration !== undefined) setVibrationStrength(Number(vibration));
             if (mute !== undefined) setIsMute(mute === "true");
+
+            setIsLoaded(true)
         }
-        //TODO
-        loadSettings()
+        loadSettings().catch(console.error)
     }, [])
 
-    // SETTING DATA
-    //TODO: split if frequent change (eg updateVibrationStrength)
-    const updateSettings = async () => {
-        await Promise.all([
-            storeData(KEYS.ACTIVE_PRESET, activePreset),
-            storeData(KEYS.CUSTOM_PRESET, JSON.stringify(customPreset)),
-            storeData(KEYS.VIBRATION_STRENGTH, String(vibrationStrength)),
-            storeData(KEYS.MUTE_SOUND, String(isMute)),
-        ])
-    }
+    // Updating Settings
+    useSyncToStorage(KEYS.ACTIVE_PRESET, activePreset, isLoaded)
+    useSyncToStorage(KEYS.CUSTOM_PRESET, JSON.stringify(customPreset), isLoaded)
+    useSyncToStorage(KEYS.VIBRATION_STRENGTH, String(vibrationStrength), isLoaded)
+    useSyncToStorage(KEYS.MUTE_SOUND, String(isMute), isLoaded)
 
     return ({
         activePreset,

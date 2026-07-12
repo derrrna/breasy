@@ -7,6 +7,11 @@ export interface Preset {
 export const PRESET_NAMES = ["paced", "box", "sigh", "custom"] as const;
 export type PresetNames = typeof PRESET_NAMES[number];
 
+// TODO: risky `as` - widens PRESET_NAMES's element type so .includes(value)
+// accepts a plain string. Revisit if PRESET_NAMES's shape ever changes.
+export const isPresetName = (value: string): value is PresetNames =>
+    (PRESET_NAMES as readonly string[]).includes(value);
+
 export const BREATHING_PRESETS: Record<Exclude<PresetNames, "custom">, Preset> = {
     paced: {inhaleCount: 4, exhaleCount: 6, cycleCount: 3},
     box: {inhaleCount: 4, exhaleCount: 4, cycleCount: 4},
