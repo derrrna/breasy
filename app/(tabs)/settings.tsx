@@ -1,16 +1,16 @@
 import Header from "@/components/header";
 import {ScrollView, Text, TextInput, View} from 'react-native';
-import RadioButton from "@/components/radioButton";
 import {SettingsContext} from "@/store/settingsContext";
 import {useContext} from "react";
 import Slider from "@react-native-community/slider";
 import CustomPresetField from "@/components/customPresetField";
+import {RadioButton} from "react-native-paper";
 
 export default function Settings(){
 
     const settingsContext = useContext(SettingsContext);
 
-    const handleRadioPress = () => {}
+    const handleRadioPress = (value: string) => {}
 
     const handleCustomChange = () => {
 
@@ -23,12 +23,40 @@ export default function Settings(){
 
             <View className={'flex-col w-full'}>
                 <Text className={"text-xl my-3"}>Breathing Exercise</Text>
-                <View className={"pl-5"}>
-                    <RadioButton optionName={"Box Breathing"} handlePress={handleRadioPress}/>
-                    <RadioButton optionName={"TIPP"} handlePress={handleRadioPress}/>
-                    <RadioButton optionName={"Physiological Sigh"} handlePress={handleRadioPress}/>
-                    <RadioButton optionName={"Custom"} handlePress={handleRadioPress}/>
-                </View>
+                <RadioButton.Group onValueChange={handleRadioPress} value={settingsContext?.activePreset ?? ''}>
+                    <View className={"pl-5"}>
+                        <RadioButton.Item
+                            label={"Paced Breathing"}
+                            value={"Paced Breathing"}
+                            position={"leading"}
+                            style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
+                            labelStyle={{textAlign: 'left', flexGrow: 0}}/>
+                        <RadioButton.Item
+                            label={"Box Breathing"}
+                            value={"Box Breathing"}
+                            position={"leading"}
+                            style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
+                            labelStyle={{textAlign: 'left', flexGrow: 0}}/>
+                        <RadioButton.Item
+                            label={"TIPP"}
+                            value={"TIPP"}
+                            position={"leading"}
+                            style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
+                            labelStyle={{textAlign: 'left', flexGrow: 0}}/>
+                        <RadioButton.Item
+                            label={"Physiological Sigh"}
+                            value={"Physiological Sigh"}
+                            position={"leading"}
+                            style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
+                            labelStyle={{textAlign: 'left', flexGrow: 0}}/>
+                        <RadioButton.Item
+                            label={"Custom"}
+                            value={"Custom"}
+                            position={"leading"}
+                            style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
+                            labelStyle={{textAlign: 'left', flexGrow: 0}}/>
+                    </View>
+                </RadioButton.Group>
             </View>
 
             <View className={'flex-col w-full'}>
