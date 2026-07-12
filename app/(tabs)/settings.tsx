@@ -10,11 +10,11 @@ export default function Settings(){
 
     const settingsContext = useContext(SettingsContext);
 
-    const handleRadioPress = (value: string) => {}
-
-    const handleCustomChange = () => {
-
+    const handleRadioPress = (value: string) => {
+        settingsContext?.setActivePreset(value);
     }
+
+    const handleCustomChange = () => {}
 
     return (
         <ScrollView className={"flex-1"} contentContainerClassName={"grow justify-center items-center px-8"}>
@@ -27,31 +27,25 @@ export default function Settings(){
                     <View className={"pl-5"}>
                         <RadioButton.Item
                             label={"Paced Breathing"}
-                            value={"Paced Breathing"}
+                            value={"paced"}
                             position={"leading"}
                             style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
                             labelStyle={{textAlign: 'left', flexGrow: 0}}/>
                         <RadioButton.Item
                             label={"Box Breathing"}
-                            value={"Box Breathing"}
-                            position={"leading"}
-                            style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
-                            labelStyle={{textAlign: 'left', flexGrow: 0}}/>
-                        <RadioButton.Item
-                            label={"TIPP"}
-                            value={"TIPP"}
+                            value={"box"}
                             position={"leading"}
                             style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
                             labelStyle={{textAlign: 'left', flexGrow: 0}}/>
                         <RadioButton.Item
                             label={"Physiological Sigh"}
-                            value={"Physiological Sigh"}
+                            value={"sigh"}
                             position={"leading"}
                             style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
                             labelStyle={{textAlign: 'left', flexGrow: 0}}/>
                         <RadioButton.Item
                             label={"Custom"}
-                            value={"Custom"}
+                            value={"custom"}
                             position={"leading"}
                             style={{justifyContent: 'flex-start', paddingHorizontal: 0}}
                             labelStyle={{textAlign: 'left', flexGrow: 0}}/>
