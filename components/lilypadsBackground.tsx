@@ -7,7 +7,7 @@ const LILYPAD_COLOR = "#BFE6CC";
 
 function Lilypad({size, rotation = 0, style}: {size: number; rotation?: number; style?: object}) {
     return (
-        <View style={[{transform: [{rotate: `${rotation}deg`}]}, style]}>
+        <View style={[{position: "absolute", transform: [{rotate: `${rotation}deg`}]}, style]}>
             <Svg width={size} height={size} viewBox="0 0 512 512">
                 <Path d={LILYPAD_PATH} fill={LILYPAD_COLOR}/>
             </Svg>
@@ -18,17 +18,17 @@ function Lilypad({size, rotation = 0, style}: {size: number; rotation?: number; 
 export default function LilypadsBackground() {
     return (
         <View className={"absolute inset-0"} pointerEvents={"none"}>
-            {/* upper-right cluster */}
-            <Lilypad size={70} rotation={-15} style={{position: "absolute", top: 167, right: -20}}/>
-            <Lilypad size={55} rotation={20} style={{position: "absolute", top: 217, right: -10}}/>
+            {/* upper-right cluster, level with the top of the progress ring */}
+            <Lilypad size={70} rotation={-15} style={{top: "24%", right: -20}}/>
+            <Lilypad size={55} rotation={20} style={{top: "31%", right: -10}}/>
 
-            {/* lower-left cluster */}
-            <Lilypad size={65} rotation={10} style={{position: "absolute", top: 527, left: -25}}/>
-            <Lilypad size={45} rotation={-25} style={{position: "absolute", top: 582, left: -15}}/>
+            {/* lower-left cluster, level with the bottom of the ring / play button */}
+            <Lilypad size={65} rotation={10} style={{top: "75%", left: -25}}/>
+            <Lilypad size={45} rotation={-25} style={{top: "83%", left: -15}}/>
 
-            {/* lower-right cluster */}
-            <Lilypad size={60} rotation={30} style={{position: "absolute", top: 600, right: -20}}/>
-            <Lilypad size={44} rotation={-10} style={{position: "absolute", top: 645, right: -25}}/>
+            {/* lower-right cluster, level with the play button */}
+            <Lilypad size={60} rotation={30} style={{top: "86%", right: -20}}/>
+            <Lilypad size={44} rotation={-10} style={{top: "92%", right: -25}}/>
         </View>
     );
 }
