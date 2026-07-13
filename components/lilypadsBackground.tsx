@@ -16,6 +16,8 @@ function Lilypad({size, rotation = 0, style}: {size: number; rotation?: number; 
 }
 
 export default function LilypadsBackground() {
+
+    {/* TODO this needs to be fixed */}
     return (
         <View className={"absolute inset-0"} pointerEvents={"none"}>
             {/* upper-right cluster, level with the top of the progress ring */}
