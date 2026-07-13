@@ -20,7 +20,7 @@ export const useSettings = () => {
     const [cycleCount, setCycleCount] = useState(3)
     // TODO: When hardware is implemented, find mid value.
     const [vibrationStrength, setVibrationStrength] = useState(0)
-    const [isMute, setIsMute] = useState(false)
+    const [isSoundOn, setIsSoundOn] = useState(false)
 
     // MOUNT LOADING
     // When app mounts, load user settings (if not yet set, leave as default).
@@ -28,7 +28,7 @@ export const useSettings = () => {
 
         // Wait for all settings to be retrieved.
         const loadSettings = async () => {
-            const [active, inhale, exhale, cycle, vibration, mute] = await Promise.all([
+            const [active, inhale, exhale, cycle, vibration, soundOn] = await Promise.all([
                 getData(KEYS.ACTIVE_PRESET),
                 getData(KEYS.CUSTOM_INHALE_COUNT),
                 getData(KEYS.CUSTOM_EXHALE_COUNT),
@@ -42,7 +42,7 @@ export const useSettings = () => {
             if (exhale !== undefined) setExhaleCount(Number(exhale));
             if (cycle !== undefined) setCycleCount(Number(cycle));
             if (vibration !== undefined) setVibrationStrength(Number(vibration));
-            if (mute !== undefined) setIsMute(mute === "true");
+            if (soundOn !== undefined) setIsSoundOn(soundOn === "true");
 
             setIsLoaded(true)
         }
@@ -55,7 +55,7 @@ export const useSettings = () => {
     useSyncToStorage(KEYS.CUSTOM_EXHALE_COUNT, String(exhaleCount), isLoaded)
     useSyncToStorage(KEYS.CUSTOM_CYCLE_COUNT, String(cycleCount), isLoaded)
     useSyncToStorage(KEYS.VIBRATION_STRENGTH, String(vibrationStrength), isLoaded)
-    useSyncToStorage(KEYS.MUTE_SOUND, String(isMute), isLoaded)
+    useSyncToStorage(KEYS.MUTE_SOUND, String(isSoundOn), isLoaded)
 
     return ({
         activePreset,
@@ -68,5 +68,5 @@ export const useSettings = () => {
         setCycleCount,
         vibrationStrength,
         setVibrationStrength,
-        isMute, setIsMute})
+        isSoundOn, setIsSoundOn})
 }

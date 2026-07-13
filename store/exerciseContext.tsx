@@ -27,7 +27,7 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
 
     const settingsContext = useSettingsContext();
     const {inhaleCount, exhaleCount, cycleCount} = settingsContext.activePresetInfo
-    const isMute = settingsContext.isMute;
+    const isSoundOn = settingsContext.isSoundOn;
 
     const [currentCycle, setCurrentCycle] = useState(0)
     const [isRunning, setIsRunning] = useState(false)
@@ -42,12 +42,12 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
     const inhaleCountCopy = useRef(inhaleCount)
     const exhaleCountCopy = useRef(exhaleCount)
     const cycleCountCopy = useRef(cycleCount)
-    const isMuteCopy = useRef(isMute)
+    const isSoundOnCopy = useRef(isSoundOn)
 
     inhaleCountCopy.current = inhaleCount
     exhaleCountCopy.current = exhaleCount
     cycleCountCopy.current = cycleCount
-    isMuteCopy.current = isMute
+    isSoundOnCopy.current = isSoundOn
 
     // PLAY BUTTON
     const toggleRunning = () => {
@@ -85,7 +85,7 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
             setPhaseCount(count)
 
             //TODO Replace sound. also check what happens if background audio playback
-            if (isMuteCopy.current) {
+            if (isSoundOnCopy.current) {
                 void player.seekTo(0);
                 player.play();
             }

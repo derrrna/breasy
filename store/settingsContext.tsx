@@ -14,8 +14,8 @@ export interface settingsContextValue {
     setCycleCount: (cycleCount: number) => void;
     vibrationStrength: number;
     setVibrationStrength: (vibrationStrength: number) => void;
-    isMute: boolean;
-    setIsMute: (isMute: boolean) => void;
+    isSoundOn: boolean;
+    setIsSoundOn: (isSoundOn: boolean) => void;
 }
 
 export const SettingsContext = createContext<settingsContextValue | null >(null);
@@ -54,8 +54,8 @@ export default function SettingsContextProvider({children}: {children: ReactNode
                 vibrationStrength: settings.vibrationStrength,
                 setVibrationStrength: settings.setVibrationStrength,
 
-                isMute: settings.isMute,
-                setIsMute: settings.setIsMute,
+                isSoundOn: settings.isSoundOn,
+                setIsSoundOn: settings.setIsSoundOn,
             }}>
             {children}
         </SettingsContext.Provider>
