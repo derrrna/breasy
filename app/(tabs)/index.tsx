@@ -6,6 +6,7 @@ import SoundSwitch from "@/components/soundSwitch";
 import {useSettingsContext} from "@/store/settingsContext";
 import {Circle} from "react-native-svg";
 import PlayButton from "@/components/playButton";
+import LilypadsBackground from "@/components/lilypadsBackground";
 
 export default function Index() {
 
@@ -16,7 +17,9 @@ export default function Index() {
     const trailColor = "#76C89370";
 
     return (
-        <View className={"flex-col w-full bg-white h-full items-center "}>
+        <View className={"flex-col w-full bg-white h-full items-center overflow-hidden"}>
+
+            <LilypadsBackground/>
 
             {/* CONFIG */}
             <View className={"flex-row w-full px-6 pt-14 mb-10 justify-between items-center"}>
