@@ -12,17 +12,17 @@ export default function Index() {
     const {breathProgress, phaseCount, currentCycle, reset, isInhalePhase} = useExerciseContext();
     const activePresetInfo = useSettingsContext().activePresetInfo
 
-    const tintColor = isInhalePhase ? "#76C893" : "#F4A259";
-    const trailColor = isInhalePhase ? "#76C89370" : "#F4A25970";
+    const tintColor = "#76C893";
+    const trailColor = "#76C89370";
 
     return (
         <View className={"flex-col w-full bg-white h-full items-center "}>
 
             {/* CONFIG */}
-            <View className={"flex-row w-full px-6 pt-16 mb-10 justify-between items-center"}>
+            <View className={"flex-row w-full px-6 pt-14 mb-10 justify-between items-center"}>
                 <View className={"flex-col"}>
-                    <Text className={"text-black text-base font-medium"}>{useSettingsContext().activePreset}</Text>
-                    <Text className={"color-[#168AAD] text-base font-medium"}>
+                    <Text className={"text-[#0F3641] font-medium"}>{useSettingsContext().activePreset}</Text>
+                    <Text className={"text-[#0F3641] font-medium"}>
                         Cycle: {`${currentCycle} / ${activePresetInfo.cycleCount}` }
                     </Text>
                 </View>
@@ -41,11 +41,11 @@ export default function Index() {
                     size={350}
                     width={20}
                     fill={(breathProgress / phaseCount) * 100}
-                    tintColor={tintColor as unknown as string}
-                    backgroundColor={trailColor as unknown as string}
+                    tintColor={tintColor}
+                    backgroundColor={trailColor}
                     lineCap={"round"}
                     renderCap={({ center }) => (
-                        <Circle cx={center.x} cy={center.y} r="10" fill={isInhalePhase ? "#4D8261" : "#A15C1E"} />
+                        <Circle cx={center.x} cy={center.y} r="10" fill={"#4D8261"} />
                     )}
                     rotation={0}
                     duration={1000}

@@ -4,6 +4,7 @@ export interface Preset {
     cycleCount: number;
 }
 
+{/* TODO formatting of names when they come out for display*/}
 export const PRESET_NAMES = ["paced", "box", "sigh", "custom"] as const;
 export type PresetNames = typeof PRESET_NAMES[number];
 
