@@ -19,15 +19,14 @@ export default function Index() {
         <View className={"flex-col w-full bg-white h-full items-center "}>
 
             {/* CONFIG */}
-            <View className={"flex-row w-full px-6 pt-16 mb-10 justify-between"}>
+            <View className={"flex-row w-full px-6 pt-16 mb-10 justify-between items-center"}>
                 <View className={"flex-col"}>
-                    {/* TODO */}
-                    <Text>{useSettingsContext().activePreset}</Text>
-                    <Text className={"color-[#168AAD] text-xl"}>
+                    <Text className={"text-black text-base font-medium"}>{useSettingsContext().activePreset}</Text>
+                    <Text className={"color-[#168AAD] text-base font-medium"}>
                         Cycle: {`${currentCycle} / ${activePresetInfo.cycleCount}` }
                     </Text>
                 </View>
-                <View className={"flex-row"}>
+                <View className={"flex-row items-center gap-3"}>
                     {/* Sound on / off button */}
                     <SoundSwitch/>
                     {/* Reset Button */}
