@@ -1,4 +1,4 @@
-import {ScrollView} from 'react-native';
+import {ScrollView, View} from 'react-native';
 import {SettingsContext} from "@/store/settingsContext";
 import {useContext} from "react";
 import CustomPresetField from "@/components/customPresetField";
@@ -51,6 +51,7 @@ export default function Settings(){
                     onValueChange={(v) => settingsContext?.setVibrationStrength(v)}
                 />
             </SettingsSection>
+            <View className={"h-40"}></View>
         </ScrollView>
     )
 
