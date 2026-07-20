@@ -1,27 +1,20 @@
 import {Tabs} from 'expo-router';
-import {FontAwesome, FontAwesome6} from "@expo/vector-icons";
+import {FontAwesome} from "@expo/vector-icons";
 import PlayButton from "@/components/playButton";
 import React from "react";
 import SettingsContextProvider from "@/store/settingsContext";
 import ExerciseContextProvider from "@/store/exerciseContext";
+import BottomBar from "@/components/bottomBar";
 
 export default function TabLayout() {
     return (
         <SettingsContextProvider>
             <ExerciseContextProvider>
                 <Tabs
+                    tabBar={(props) => <BottomBar {...props}/>}
                     screenOptions={{
                         headerShown: false,
-                        tabBarActiveTintColor: '#fdf0d5',
-                        tabBarInactiveTintColor: 'white',
                         animation: 'shift',
-                        tabBarStyle: {
-                            backgroundColor: '#168AAD',
-                            height: '12%',
-                        },
-                        tabBarLabelStyle: {
-                            fontSize: 15,
-                        }
                     }}>
 
                     {/* Home */}
