@@ -11,7 +11,8 @@ export default function Settings(){
     const settingsContext = useContext(SettingsContext);
 
     return (
-        <ScrollView className={"flex-1"} contentContainerClassName={"grow justify-center items-center px-8"}>
+        <ScrollView className={"flex-1"}
+                    contentContainerClassName={"bg-[#FEFEFE] grow justify-center items-center px-8 pt-8"}>
             <SettingsSection
                 title={"Breathing Exercise"}
                 description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}>
@@ -37,8 +38,7 @@ export default function Settings(){
 
             <SettingsSection
                 title={"Vibration Strength"}
-                description={"Ut enim ad minim veniam quis nostrud exercitation ullamco."}
-                className={"pt-8"}>
+                description={"Ut enim ad minim veniam quis nostrud exercitation ullamco."}>
                 <Slider
                     minimumValue={0}
                     maximumValue={5}

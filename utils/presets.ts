@@ -14,6 +14,8 @@ export type PresetNames = typeof PRESET_NAMES[number];
 export const isPresetName = (value: string): value is PresetNames =>
     (PRESET_NAMES as readonly string[]).includes(value);
 
+export const CUSTOM_EXERCISE_NAME = "Custom Exercise";
+
 export const BREATHING_PRESETS: Record<Exclude<PresetNames, "custom">, Preset> = {
     paced: {inhaleCount: 4, exhaleCount: 6, cycleCount: 3, formattedName: "Paced Breathing"},
     box: {inhaleCount: 4, exhaleCount: 4, cycleCount: 4, formattedName: "Box Breathing"},

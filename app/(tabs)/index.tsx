@@ -26,6 +26,7 @@ export default function Index() {
     useEffect(() => {
         if (isInhalePhase === displayedPhase) return;
 
+        //TODO
         phaseOpacity.value = withTiming(0, {duration: 150, easing: Easing.linear}, (finished) => {
             if (!finished) return;
             runOnJS(setDisplayedPhase)(isInhalePhase);

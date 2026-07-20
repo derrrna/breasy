@@ -1,6 +1,6 @@
 import React, {createContext, ReactNode, useContext, useMemo} from "react";
 import { useSettings } from "@/hooks/useSettings";
-import {getPreset, Preset, PresetNames} from "@/utils/presets";
+import {CUSTOM_EXERCISE_NAME, getPreset, Preset, PresetNames} from "@/utils/presets";
 
 export interface settingsContextValue {
     activePreset: PresetNames;
@@ -34,7 +34,7 @@ export default function SettingsContextProvider({children}: {children: ReactNode
         inhaleCount: settings.inhaleCount,
         exhaleCount: settings.exhaleCount,
         cycleCount: settings.cycleCount,
-        formattedName: "Custom Exercise",
+        formattedName: CUSTOM_EXERCISE_NAME,
     }), [settings.inhaleCount, settings.exhaleCount, settings.cycleCount])
     const activePresetInfo = getPreset(settings.activePreset, customPresetInfo)
 
