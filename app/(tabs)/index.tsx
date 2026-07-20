@@ -1,4 +1,5 @@
 import {Switch, Text, View} from "react-native";
+import Animated, {Easing, runOnJS, useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import ResetButton from "@/components/resetButton";
 import {useExerciseContext} from "@/store/exerciseContext";
@@ -7,6 +8,8 @@ import {useSettingsContext} from "@/store/settingsContext";
 import {Circle} from "react-native-svg";
 import PlayButton from "@/components/playButton";
 import LilypadsBackground from "@/components/lilypadsBackground";
+import OdometerDigit from "@/components/odometerDigit";
+import {useEffect, useState} from "react";
 
 export default function Index() {
 
@@ -15,6 +18,24 @@ export default function Index() {
 
     const tintColor = "#7FC391";
     const trailColor = "#76C89370";
+
+    // Crossfade transition for the Inhale/Exhale label swap.
+    const [displayedPhase, setDisplayedPhase] = useState(isInhalePhase);
+    const phaseOpacity = useSharedValue(1);
+
+    useEffect(() => {
+        if (isInhalePhase === displayedPhase) return;
+
+        phaseOpacity.value = withTiming(0, {duration: 150, easing: Easing.linear}, (finished) => {
+            if (!finished) return;
+            runOnJS(setDisplayedPhase)(isInhalePhase);
+            phaseOpacity.value = withTiming(1, {duration: 150, easing: Easing.linear});
+        });
+    }, [isInhalePhase, displayedPhase]);
+
+    const phaseAnimatedStyle = useAnimatedStyle(() => ({
+        opacity: phaseOpacity.value,
+    }));
 
     return (
         <View className={"flex-col w-full bg-white h-full items-center overflow-hidden"}>
@@ -25,9 +46,11 @@ export default function Index() {
             <View className={"flex-row w-full px-6 pt-12 mb-16 justify-between items-center"}>
                 <View className={"flex-col"}>
                     <Text className={"text-[#0F3641] font-interSemiBold"}>{activePresetInfo.formattedName}</Text>
-                    <Text className={"text-[#0F3641] font-interSemiBold"}>
-                        Cycle {`${currentCycle} / ${activePresetInfo.cycleCount}` }
-                    </Text>
+                    <View className={"flex-row items-baseline"}>
+                        <Text className={"text-[#0F3641] font-interSemiBold"}>Cycle </Text>
+                        <OdometerDigit digit={currentCycle} className={"text-[#0F3641] font-interSemiBold"}/>
+                        <Text className={"text-[#0F3641] font-interSemiBold"}>{` / ${activePresetInfo.cycleCount}`}</Text>
+                    </View>
                 </View>
                 <View className={"flex-row items-center gap-4"}>
                     {/* Sound on / off button */}
@@ -56,7 +79,11 @@ export default function Index() {
                     {() => (
                         <View className={"justify-center items-center"}>
                             <Text className={"color-[#168AAD] text-9xl font-interRegular"}>{breathProgress}</Text>
-                            <Text className={"color-[#0F3641] text-3xl font-interMedium"}>{isInhalePhase ? "Inhale" : "Exhale"}</Text>
+                            <Animated.View style={phaseAnimatedStyle}>
+                                <Text className={"color-[#0F3641] text-3xl font-interMedium"}>
+                                    {displayedPhase ? "Inhale" : "Exhale"}
+                                </Text>
+                            </Animated.View>
                         </View>
                     )}
                 </AnimatedCircularProgress>
