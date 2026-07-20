@@ -32,15 +32,15 @@ export default function SoundSwitch() {
             value={isSoundOn}
             onValueChange={setIsSoundOn}
 
-            circleSize={42}
+            circleSize={40}
             circleBorderWidth={0}
             backgroundActive={"#168AAD"}
             backgroundInactive={"#8AC4D5"}
             circleActiveColor={"#FEFEFE"}
             circleInActiveColor={"#FEFEFE"}
 
-            barHeight={55}
-            switchWidthMultiplier={2.4}
+            barHeight={50}
+            switchWidthMultiplier={2.3}
             renderActiveText={false}
             renderInActiveText={false}
             renderInsideCircle={() => <AnimatedSoundIcon isSoundOn={isSoundOn}/>}/>

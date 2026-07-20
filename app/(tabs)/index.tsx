@@ -43,10 +43,10 @@ export default function Index() {
             <LilypadsBackground/>
 
             {/* CONFIG */}
-            <View className={"flex-row w-full px-6 pt-12 mb-16 justify-between items-center"}>
-                <View className={"flex-col"}>
+            <View className={"flex-row w-full px-6 pt-12 mb-14 justify-between items-center"}>
+                <View className={"flex-col pl-4"}>
                     <Text className={"text-[#0F3641] font-interSemiBold"}>{activePresetInfo.formattedName}</Text>
-                    <View className={"flex-row items-baseline"}>
+                    <View className={"flex-row items-baseline -mt-1"}>
                         <Text className={"text-[#0F3641] font-interSemiBold"}>Cycle </Text>
                         <OdometerDigit digit={currentCycle} className={"text-[#0F3641] font-interSemiBold"}/>
                         <Text className={"text-[#0F3641] font-interSemiBold"}>{` / ${activePresetInfo.cycleCount}`}</Text>
@@ -58,14 +58,13 @@ export default function Index() {
                     {/* Reset Button */}
                     <ResetButton onPress={reset}/>
                 </View>
-
             </View>
 
             {/* EXERCISE VISUAL */}
-            <View className={"mb-8"}>
+            <View className={"mb-10"}>
                 <AnimatedCircularProgress
                     size={340}
-                    width={25}
+                    width={28}
                     fill={(breathProgress / phaseCount) * 100}
                     tintColor={tintColor}
                     backgroundColor={trailColor}
@@ -78,7 +77,7 @@ export default function Index() {
                     prefill={0}>
                     {() => (
                         <View className={"justify-center items-center"}>
-                            <Text className={"color-[#168AAD] text-9xl font-interRegular"}>{breathProgress}</Text>
+                            <Text className={"color-[#168AAD] text-8xl font-interRegular"}>{breathProgress}</Text>
                             <Animated.View style={phaseAnimatedStyle}>
                                 <Text className={"color-[#0F3641] text-3xl font-interMedium"}>
                                     {displayedPhase ? "Inhale" : "Exhale"}

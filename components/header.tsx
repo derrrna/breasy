@@ -4,7 +4,7 @@ import {FontAwesome6} from "@expo/vector-icons";
 export default function Header() {
     return (
         <View
-            className={"flex-row bg-[#168AAD] pt-20 pb-4 px-6 items-center gap-3"}
+            className={"flex-row bg-[#168AAD] pt-14 pb-4 px-6 items-center gap-3"}
             style={{
                 shadowColor: '#000',
                 shadowOffset: { width: 0, height: 4 },
