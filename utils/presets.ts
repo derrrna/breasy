@@ -2,6 +2,7 @@ export interface Preset {
     inhaleCount: number;
     exhaleCount: number;
     cycleCount: number;
+    formattedName: string;
 }
 
 {/* TODO formatting of names when they come out for display*/}
@@ -14,9 +15,9 @@ export const isPresetName = (value: string): value is PresetNames =>
     (PRESET_NAMES as readonly string[]).includes(value);
 
 export const BREATHING_PRESETS: Record<Exclude<PresetNames, "custom">, Preset> = {
-    paced: {inhaleCount: 4, exhaleCount: 6, cycleCount: 3},
-    box: {inhaleCount: 4, exhaleCount: 4, cycleCount: 4},
-    sigh: {inhaleCount: 2, exhaleCount: 6, cycleCount: 1},
+    paced: {inhaleCount: 4, exhaleCount: 6, cycleCount: 3, formattedName: "Paced Breathing"},
+    box: {inhaleCount: 4, exhaleCount: 4, cycleCount: 4, formattedName: "Box Breathing"},
+    sigh: {inhaleCount: 2, exhaleCount: 6, cycleCount: 1, formattedName: "Physiological Sigh"},
 }
 
 export const getPreset = (activePreset: PresetNames, customPreset: Preset) => {

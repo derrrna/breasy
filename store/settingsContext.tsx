@@ -34,6 +34,7 @@ export default function SettingsContextProvider({children}: {children: ReactNode
         inhaleCount: settings.inhaleCount,
         exhaleCount: settings.exhaleCount,
         cycleCount: settings.cycleCount,
+        formattedName: "Custom Exercise",
     }), [settings.inhaleCount, settings.exhaleCount, settings.cycleCount])
     const activePresetInfo = getPreset(settings.activePreset, customPresetInfo)
 

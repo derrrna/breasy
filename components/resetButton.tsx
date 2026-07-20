@@ -35,10 +35,10 @@ export default function ResetButton(props: ResetButtonProps) {
 
     return (
         <Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
-            <Animated.View style={{ backgroundColor }} className={"items-center rounded-xl justify-center w-14 h-14 overflow-hidden"}>
+            <Animated.View style={{ backgroundColor }} className={"items-center rounded-xl justify-center w-16 h-16 overflow-hidden"}>
                 <Animated.View className={"absolute inset-0 bg-[#168AAD]"} style={{ opacity: spinBgAnim }} />
                 <Animated.View style={{ transform: [{ rotate }] }}>
-                    <FontAwesome6 name={"arrows-rotate"} color={"#FEFEFE"} size={26} />
+                    <FontAwesome6 name={"arrows-rotate"} color={"#FEFEFE"} size={34} />
                 </Animated.View>
             </Animated.View>
         </Pressable>

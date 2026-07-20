@@ -12,12 +12,12 @@ function AnimatedSoundIcon({ isSoundOn }: { isSoundOn: boolean }) {
     }, [isSoundOn]);
 
     return (
-        <View className={"w-[25px] h-5 items-center justify-center"}>
+        <View className={"w-[30px] h-8 items-center justify-center"}>
             <Animated.View className={"absolute inset-0 items-center justify-center"} style={{ opacity: progress.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }}>
-                <FontAwesome5 name={"volume-mute"} color={"#126E8A"} size={20}/>
+                <FontAwesome5 name={"volume-mute"} color={"#126E8A"} size={25}/>
             </Animated.View>
             <Animated.View className={"absolute inset-0 items-center justify-center"} style={{ opacity: progress }}>
-                <FontAwesome5 name={"volume-up"} color={"#168AAD"} size={20}/>
+                <FontAwesome5 name={"volume-up"} color={"#168AAD"} size={25}/>
             </Animated.View>
         </View>
     );
@@ -32,15 +32,15 @@ export default function SoundSwitch() {
             value={isSoundOn}
             onValueChange={setIsSoundOn}
 
-            circleSize={40}
+            circleSize={42}
             circleBorderWidth={0}
             backgroundActive={"#168AAD"}
             backgroundInactive={"#8AC4D5"}
             circleActiveColor={"#FEFEFE"}
             circleInActiveColor={"#FEFEFE"}
 
-            barHeight={50}
-            switchWidthMultiplier={2.3}
+            barHeight={55}
+            switchWidthMultiplier={2.4}
             renderActiveText={false}
             renderInActiveText={false}
             renderInsideCircle={() => <AnimatedSoundIcon isSoundOn={isSoundOn}/>}/>

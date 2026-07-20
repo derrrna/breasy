@@ -7,6 +7,10 @@ module.exports = {
     extend: {
       fontFamily: {
         vividly: ['vividly'],
+        interMedium: ['Inter_500Medium'],
+        interRegular: ['Inter_400Regular'],
+        interSemiBold: ['Inter_600SemiBold'],
+        interBold: ['Inter_700Bold'],
       },
     },
   },
