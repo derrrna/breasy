@@ -1,8 +1,9 @@
 import {Animated as RNAnimated, LayoutChangeEvent, Pressable, StyleSheet, View} from "react-native";
 import {BottomTabBarProps} from "@react-navigation/bottom-tabs";
 import {FontAwesome6} from "@expo/vector-icons";
-import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
+import Animated, {useAnimatedStyle, useSharedValue, withSpring} from "react-native-reanimated";
 import {useEffect, useRef, useState} from "react";
+import {DROP_SHADOW} from "@/utils/styles";
 
 const ACTIVE_COLOR = "#0F3641";
 const INACTIVE_COLOR = "white";
@@ -63,7 +64,7 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
     const pillOffset = useSharedValue(state.index * tabWidth);
 
     useEffect(() => {
-        pillOffset.value = withTiming(state.index * tabWidth, {duration: 400, easing: Easing.out(Easing.exp)});
+        pillOffset.value = withSpring(state.index * tabWidth, {damping: 13, stiffness: 183, mass: 0.4});
     }, [state.index, tabWidth]);
 
     const pillStyle = useAnimatedStyle(() => ({
@@ -77,7 +78,7 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
     //TODO review
     return (
         <View className={"absolute bottom-0 left-0 right-0 flex-row items-center px-6 pb-10 gap-4"}>
-            <View className={"flex-row flex-1 bg-[#168AAD] rounded-full p-1.5"}>
+            <View className={"flex-row flex-1 bg-[#168AAD] rounded-full p-1.5"} style={DROP_SHADOW}>
                 <View onLayout={onTabsLayout} className={"flex-row flex-1"}>
                     {tabsWidth > 0 ? (
                         <Animated.View
@@ -126,11 +127,12 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
                     })}
                 </View>
             </View>
-            <Pressable
-                onPress={onFrogPress}
-                className={"bg-[#168AAD] rounded-full items-center justify-center"}
-                style={{width: FROG_SIZE, height: FROG_SIZE}}>
-                <FontAwesome6 name={"frog"} size={34} color={"white"}/>
+            <Pressable onPress={onFrogPress}>
+                <View
+                    className={"bg-[#168AAD] rounded-full items-center justify-center"}
+                    style={{width: FROG_SIZE, height: FROG_SIZE, ...DROP_SHADOW}}>
+                    <FontAwesome6 name={"frog"} size={34} color={"white"}/>
+                </View>
             </Pressable>
         </View>
     );

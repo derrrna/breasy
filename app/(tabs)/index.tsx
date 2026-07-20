@@ -62,7 +62,7 @@ export default function Index() {
             </View>
 
             {/* EXERCISE VISUAL */}
-            <View className={"mb-10"}>
+            <View className={"mb-8"}>
                 <AnimatedCircularProgress
                     size={340}
                     width={28}

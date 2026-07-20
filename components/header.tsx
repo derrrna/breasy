@@ -5,13 +5,16 @@ export default function Header() {
     return (
         <View
             className={"flex-row bg-[#168AAD] pt-14 pb-4 px-6 items-center gap-3"}
-            // TODO: shadow/elevation not rendering on Android, cause unconfirmed - investigate.
+            // TODO: shadow does not render here (tested shadow* props, elevation-only, and extreme
+            // values up to elevation:50 - none visible on Android/Expo Go). Works fine on plain Views
+            // elsewhere (bottomBar.tsx), so likely specific to this component being rendered inside
+            // React Navigation's Stack `header` slot, or an Expo Go limitation. Revisit in a dev build.
             style={{
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 6 },
-                shadowOpacity: 0.8,
-                shadowRadius: 12,
-                elevation: 24,
+                shadowColor: '#000000',
+                shadowOffset: {width: 0, height: 6},
+                shadowOpacity: 0.4,
+                shadowRadius: 10,
+                elevation: 16,
             }}>
             <FontAwesome6 name={"leaf"} size={40} color={"#76C893"}/>
             <View className={"flex-col"}>
