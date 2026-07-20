@@ -1,10 +1,10 @@
-import {ScrollView, View} from 'react-native';
+import {ScrollView} from 'react-native';
 import {SettingsContext} from "@/store/settingsContext";
 import {useContext} from "react";
-import Slider from "@react-native-community/slider";
 import CustomPresetField from "@/components/customPresetField";
 import SettingsSection from "@/components/settingsSection";
 import ExerciseSelection from "@/components/exerciseSelection";
+import CustomSlider from "@/components/customSlider";
 
 export default function Settings(){
 
@@ -39,13 +39,16 @@ export default function Settings(){
             <SettingsSection
                 title={"Vibration Strength"}
                 description={"Ut enim ad minim veniam quis nostrud exercitation ullamco."}>
-                <Slider
+                <CustomSlider
+                    minimumTrackTintColor={"#168AAD"}
+                    maximumTrackTintColor={"#168AAD80"}
+                    thumbTintColor={"#168AAD"}
                     minimumValue={0}
                     maximumValue={5}
                     step={1}
                     renderStepNumber={true}
-                    value={settingsContext?.vibrationStrength}
-                    onValueChange={settingsContext?.setVibrationStrength}
+                    value={settingsContext?.vibrationStrength ?? 0}
+                    onValueChange={(v) => settingsContext?.setVibrationStrength(v)}
                 />
             </SettingsSection>
         </ScrollView>

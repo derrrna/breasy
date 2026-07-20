@@ -2,10 +2,8 @@ import {Pressable, Text, View} from "react-native";
 import Animated, {useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
 import {useEffect} from "react";
 
-const RADIO_SIZE = 25;
+const RADIO_SIZE = 28;
 const BORDER_WIDTH = 5;
-const RADIO_COLOR = "#168AAD";
-const RADIO_UNCHECKED_FILL = "#F8FDFF";
 const INNER_SIZE = RADIO_SIZE - BORDER_WIDTH * 2;
 
 interface RadioOptionProps {
@@ -15,39 +13,37 @@ interface RadioOptionProps {
 }
 
 export default function RadioOption({label, checked, onPress}: RadioOptionProps) {
-    const unfilled = useSharedValue(checked ? 0 : 1);
+    const filled = useSharedValue(checked ? 1 : 0);
 
     useEffect(() => {
-        unfilled.value = withTiming(checked ? 0 : 1, {duration: 150});
+        filled.value = withTiming(checked ? 1 : 0, {duration: 200});
     }, [checked]);
 
-    const unfilledStyle = useAnimatedStyle(() => ({
-        transform: [{scale: unfilled.value}],
+    const filledStyle = useAnimatedStyle(() => ({
+        transform: [{scale: filled.value}],
     }));
 
     return (
         <Pressable onPress={onPress} className={"flex-row items-center py-3 gap-3"}>
             <View
-                style={{
-                    width: RADIO_SIZE,
-                    height: RADIO_SIZE,
-                    borderRadius: RADIO_SIZE / 2,
-                    backgroundColor: RADIO_COLOR,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
+                className={"rounded-full bg-[#168AAD] items-center justify-center"}
+                style={{width: RADIO_SIZE, height: RADIO_SIZE}}>
+                <View
+                    className={"rounded-full bg-[#F8FDFF]"}
+                    style={{width: INNER_SIZE, height: INNER_SIZE}}/>
                 <Animated.View
                     style={[
                         {
-                            width: INNER_SIZE,
-                            height: INNER_SIZE,
-                            borderRadius: INNER_SIZE / 2,
-                            backgroundColor: RADIO_UNCHECKED_FILL,
+                            position: 'absolute',
+                            width: RADIO_SIZE,
+                            height: RADIO_SIZE,
+                            borderRadius: RADIO_SIZE / 2,
+                            backgroundColor: '#168AAD',
                         },
-                        unfilledStyle,
+                        filledStyle,
                     ]}/>
             </View>
-            <Text className={"text-[#0F3641] font-interSemiBold text-[13px]"}>{label}</Text>
+            <Text className={"text-[#0F3641] font-interSemiBold text-md"}>{label}</Text>
         </Pressable>
     );
 }

@@ -21,7 +21,6 @@ export default function RootLayout() {
   return (
       <GestureHandlerRootView style={{flex: 1}}>
           <SafeAreaProvider>
-              {/*TODO: Use Header options here*/}
               <Stack
                   screenOptions={{
                       header: () => <Header/>,
