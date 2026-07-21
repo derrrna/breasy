@@ -3,7 +3,7 @@ import Animated, {useAnimatedStyle, useSharedValue, withTiming} from "react-nati
 import {useEffect} from "react";
 
 const RADIO_SIZE = 28;
-const BORDER_WIDTH = 5;
+const BORDER_WIDTH = 3;
 const INNER_SIZE = RADIO_SIZE - BORDER_WIDTH * 2;
 
 interface RadioOptionProps {
@@ -16,7 +16,7 @@ export default function RadioOption({label, checked, onPress}: RadioOptionProps)
     const filled = useSharedValue(checked ? 1 : 0);
 
     useEffect(() => {
-        filled.value = withTiming(checked ? 1 : 0, {duration: 200});
+        filled.value = withTiming(checked ? 0.5 : 0, {duration: 200});
     }, [checked]);
 
     const filledStyle = useAnimatedStyle(() => ({
