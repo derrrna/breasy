@@ -1,14 +1,14 @@
 import {Switch, Text, View} from "react-native";
 import Animated, {Easing, runOnJS, useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import ResetButton from "@/components/resetButton";
+import ResetButton from "@/components/buttons/resetButton";
 import {useExerciseContext} from "@/store/exerciseContext";
-import SoundSwitch from "@/components/soundSwitch";
+import SoundSwitch from "@/components/buttons/soundSwitch";
 import {useSettingsContext} from "@/store/settingsContext";
 import {Circle} from "react-native-svg";
-import PlayButton from "@/components/playButton";
-import LilypadsBackground from "@/components/lilypadsBackground";
-import OdometerDigit from "@/components/odometerDigit";
+import PlayButton from "@/components/buttons/playButton";
+import LilypadsBackground from "@/components/display/lilypadsBackground";
+import OdometerDigit from "@/components/display/odometerDigit";
 import {useEffect, useState} from "react";
 
 export default function Index() {

@@ -1,6 +1,6 @@
 import {Tabs} from 'expo-router';
 import {FontAwesome} from "@expo/vector-icons";
-import PlayButton from "@/components/playButton";
+import PlayButton from "@/components/buttons/playButton";
 import React from "react";
 import SettingsContextProvider from "@/store/settingsContext";
 import ExerciseContextProvider from "@/store/exerciseContext";

@@ -5,7 +5,7 @@ import "./global.css";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
 import Header from "@/components/header";
-import LoadingScreen from "@/components/loadingScreen";
+import LoadingScreen from "@/components/display/loadingScreen";
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({

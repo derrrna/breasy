@@ -8,8 +8,8 @@ import {DROP_SHADOW} from "@/utils/styles";
 const ACTIVE_COLOR = "#0F3641";
 const INACTIVE_COLOR = "white";
 const COLOR_TRANSITION_DURATION = 100;
-const TAB_VERTICAL_PADDING = 8;
-const FROG_SIZE = 80;
+const TAB_VERTICAL_PADDING = 3;
+const FROG_SIZE = 75;
 
 function TabButtonContent({
     focused,

@@ -1,10 +1,11 @@
 import {ScrollView, View} from 'react-native';
 import {SettingsContext} from "@/store/settingsContext";
 import {useContext} from "react";
-import CustomPresetField from "@/components/customPresetField";
-import SettingsSection from "@/components/settingsSection";
-import ExerciseSelection from "@/components/exerciseSelection";
-import CustomSlider from "@/components/customSlider";
+import SettingsSection from "@/components/form/settingsSection";
+import ExerciseSelection from "@/components/form/exerciseSelection";
+import Slider from "@/components/form/slider";
+import CountPicker from "@/components/form/countPicker";
+import {CUSTOM_CONSTRAINTS} from "@/utils/presets";
 
 export default function Settings(){
 
@@ -20,26 +21,34 @@ export default function Settings(){
             </SettingsSection>
 
             <SettingsSection
-                title={"Custom"}
+                title={"Custom Exercise"}
                 description={"Consectetur adipiscing elit sed do eiusmod tempor incididunt."}>
-                <CustomPresetField
-                    name={"Inhale Count"}
+
+                <CountPicker
+                    name={"Inhale"}
                     value={settingsContext?.inhaleCount ?? 4}
-                    onChangeValue={(value) => settingsContext?.setInhaleCount(value)}/>
-                <CustomPresetField
-                    name={"Exhale Count"}
+                    onValueChange={(value) => settingsContext?.setInhaleCount(value)}
+                    constraints={CUSTOM_CONSTRAINTS.inhale}/>
+
+                <CountPicker
+                    name={"Exhale"}
                     value={settingsContext?.exhaleCount ?? 6}
-                    onChangeValue={(value) => settingsContext?.setExhaleCount(value)}/>
-                <CustomPresetField
-                    name={"Cycle Count"}
+                    onValueChange={(value) => settingsContext?.setExhaleCount(value)}
+                    constraints={CUSTOM_CONSTRAINTS.exhale}/>
+
+                <CountPicker
+                    name={"Cycle"}
                     value={settingsContext?.cycleCount ?? 3}
-                    onChangeValue={(value) => settingsContext?.setCycleCount(value)}/>
+                    onValueChange={(value) => settingsContext?.setCycleCount(value)}
+                    constraints={CUSTOM_CONSTRAINTS.cycle}
+                    marginBottom={20}/>
+
             </SettingsSection>
 
             <SettingsSection
                 title={"Vibration Strength"}
                 description={"Ut enim ad minim veniam quis nostrud exercitation ullamco."}>
-                <CustomSlider
+                <Slider
                     minimumTrackTintColor={"#168AAD"}
                     maximumTrackTintColor={"#168AAD80"}
                     thumbTintColor={"#168AAD"}

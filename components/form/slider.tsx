@@ -19,7 +19,7 @@ interface CustomSliderProps {
     renderStepNumber?: boolean;
 }
 
-export default function CustomSlider({
+export default function Slider({
     minimumValue,
     maximumValue,
     step,
