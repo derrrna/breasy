@@ -72,8 +72,10 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
     }, [settingsContext.activePresetInfo])
 
     // SOUND
-    const testSound = require("@/assets/audio/TEST_SOUND.mp3");
-    const player = useAudioPlayer(testSound);
+    const chime = require("@/assets/audio/chime.mp3")
+    const chimePlayer = useAudioPlayer(chime);
+    const completeChime = require("@/assets/audio/completeChime.mp3")
+    const completeChimePlayer = useAudioPlayer(completeChime);
 
     useEffect(() => {
 
@@ -84,10 +86,12 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
             setBreathProgress(nextProgress)
             setPhaseCount(count)
 
-            //TODO Replace sound. also check what happens if background audio playback
             if (isSoundOnCopy.current) {
-                void player.seekTo(0);
-                player.play();
+                const isLastTick = nextProgress === count
+
+                const soundPlayer = isLastTick ? completeChimePlayer : chimePlayer
+                void soundPlayer.seekTo(0);
+                soundPlayer.play();
             }
 
             breathProgressCopy.current = nextProgress
