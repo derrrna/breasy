@@ -16,13 +16,13 @@ export default function Settings(){
                     contentContainerClassName={"bg-[#FEFEFE] grow justify-center items-center px-8 pt-8"}>
             <SettingsSection
                 title={"Breathing Exercise"}
-                description={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}>
+                description={"Select a breathing exercise to perform."}>
                 <ExerciseSelection/>
             </SettingsSection>
 
             <SettingsSection
                 title={"Custom Exercise"}
-                description={"Consectetur adipiscing elit sed do eiusmod tempor incididunt."}>
+                description={"Set a custom breathing exercise."}>
 
                 <CountPicker
                     name={"Inhale"}
@@ -47,7 +47,7 @@ export default function Settings(){
 
             <SettingsSection
                 title={"Vibration Strength"}
-                description={"Ut enim ad minim veniam quis nostrud exercitation ullamco."}>
+                description={"Select the strength of vibration for Froggie."}>
                 <Slider
                     minimumTrackTintColor={"#168AAD"}
                     maximumTrackTintColor={"#168AAD80"}

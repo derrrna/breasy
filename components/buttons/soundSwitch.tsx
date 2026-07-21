@@ -1,8 +1,9 @@
 import {useSettingsContext} from "@/store/settingsContext";
 import { Switch } from 'react-native-switch';
-import {FontAwesome5} from "@expo/vector-icons";
 import {Animated, View} from "react-native";
 import React, {useEffect, useRef} from "react";
+import MuteIcon from "@/components/display/muteIcon";
+import VolumeIcon from "@/components/display/volumeIcon";
 
 function AnimatedSoundIcon({ isSoundOn }: { isSoundOn: boolean }) {
     const progress = useRef(new Animated.Value(isSoundOn ? 1 : 0)).current;
@@ -14,10 +15,10 @@ function AnimatedSoundIcon({ isSoundOn }: { isSoundOn: boolean }) {
     return (
         <View className={"w-[30px] h-8 items-center justify-center"}>
             <Animated.View className={"absolute inset-0 items-center justify-center"} style={{ opacity: progress.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }}>
-                <FontAwesome5 name={"volume-mute"} color={"#126E8A"} size={25}/>
+                <MuteIcon color={"#126E8A"} size={25}/>
             </Animated.View>
             <Animated.View className={"absolute inset-0 items-center justify-center"} style={{ opacity: progress }}>
-                <FontAwesome5 name={"volume-up"} color={"#168AAD"} size={25}/>
+                <VolumeIcon color={"#168AAD"} size={25}/>
             </Animated.View>
         </View>
     );

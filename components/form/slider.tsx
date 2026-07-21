@@ -89,7 +89,7 @@ export default function Slider({
     const stepValues = Array.from({length: stepCount}, (_, i) => minimumValue + i * step);
 
     return (
-        <View>
+        <View style={{marginBottom: 16}}>
             <GestureDetector gesture={composedGesture}>
                 <View onLayout={onLayout} style={{height: CONTAINER_HEIGHT, justifyContent: 'center'}}>
                     <View

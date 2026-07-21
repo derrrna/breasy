@@ -1,10 +1,11 @@
 import {Tabs} from 'expo-router';
-import {FontAwesome} from "@expo/vector-icons";
 import PlayButton from "@/components/buttons/playButton";
 import React from "react";
 import SettingsContextProvider from "@/store/settingsContext";
 import ExerciseContextProvider from "@/store/exerciseContext";
 import BottomBar from "@/components/bottomBar";
+import HomeIcon from "@/components/display/homeIcon";
+import CogIcon from "@/components/display/cogIcon";
 
 export default function TabLayout() {
     return (
@@ -23,7 +24,7 @@ export default function TabLayout() {
                         options={{
                             title: "Home",
                             tabBarIcon: ({ color }) =>
-                                <FontAwesome size={30} name={"home"} color={color} />
+                                <HomeIcon size={30} color={color} />
                         }}
                     />
 
@@ -33,7 +34,7 @@ export default function TabLayout() {
                         options={{
                             title: "Settings",
                             tabBarIcon: ({ color }) =>
-                                <FontAwesome size={30} name={"cog"} color={color} />
+                                <CogIcon size={30} color={color} />
                         }}
                     />
                 </Tabs>
