@@ -16,7 +16,7 @@ export default function RadioOption({label, checked, onPress}: RadioOptionProps)
     const filled = useSharedValue(checked ? 1 : 0);
 
     useEffect(() => {
-        filled.value = withTiming(checked ? 0.5 : 0, {duration: 200});
+        filled.value = withTiming(checked ? 0.5 : 0, {duration: 150});
     }, [checked]);
 
     const filledStyle = useAnimatedStyle(() => ({

@@ -64,7 +64,7 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
     const pillOffset = useSharedValue(state.index * tabWidth);
 
     useEffect(() => {
-        pillOffset.value = withSpring(state.index * tabWidth, {damping: 13, stiffness: 183, mass: 0.4});
+        pillOffset.value = withSpring(state.index * tabWidth, {damping: 16, stiffness: 164.7, mass: 0.4});
     }, [state.index, tabWidth]);
 
     const pillStyle = useAnimatedStyle(() => ({
