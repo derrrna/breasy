@@ -23,7 +23,7 @@ export default function PlayButton() {
     return (
         <Pressable onPress={toggleRunning} onPressIn={onPressIn} onPressOut={onPressOut}>
             <Animated.View style={{ transform: [{ scale: pressScale }], backgroundColor: isRunning ? "#7FC391" : "#97CCA9" }}
-                           className={"  w-[125px] h-[125px]  rounded-full items-center justify-center"}>
+                           className={"  w-[110px] h-[110px]  rounded-full items-center justify-center"}>
                 <Animated.View style={{ transform: [{ scale: iconScale }] }}>
                     <FontAwesome6 name={isRunning ? "pause" : "play"} color={"white"} size={55} style={{ marginLeft: isRunning ? 0 : 4 }}/>
                 </Animated.View>
