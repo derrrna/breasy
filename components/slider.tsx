@@ -131,7 +131,7 @@ export default function Slider({
                     className={"flex-row justify-between"}
                     style={{marginHorizontal: THUMB_SIZE / 2}}>
                     {stepValues.map((stepValue) => (
-                        <Text key={stepValue} className={"text-[#0F3641] text-lg font-interSemiBold"}>{stepValue}</Text>
+                        <Text key={stepValue} className={"text-textPrimary text-lg font-interSemiBold"}>{stepValue}</Text>
                     ))}
                 </View>
             ) : null}

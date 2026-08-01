@@ -1,5 +1,5 @@
 import React, {createContext, ReactNode, useContext, useEffect, useRef, useState} from "react";
-import {useSettingsContext} from "@/store/settingsContext";
+import {useSettingsContext} from "@/contexts/settingsContext";
 import {useAudioPlayer} from "expo-audio";
 
 export interface exerciseContextValue {

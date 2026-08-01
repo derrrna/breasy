@@ -4,9 +4,10 @@ import {Text, View} from "react-native";
 import {useEffect, useState} from "react";
 import {FontAwesome5} from "@expo/vector-icons";
 import {interpolateColor, runOnJS, useAnimatedReaction, useSharedValue, withTiming} from "react-native-reanimated";
+import colors from "@/utils/colors";
 
-const BORDER_INACTIVE_COLOR = "#F4F4F4";
-const BORDER_ACTIVE_COLOR = "#168AAD";
+const BORDER_INACTIVE_COLOR = colors.border;
+const BORDER_ACTIVE_COLOR = colors.primary;
 
 interface CountPickerProps {
     name: string;
@@ -57,12 +58,12 @@ export default function CountPicker({name, value, onValueChange, constraints, ma
                 fontFamily={"Inter_400Regular"}
                 itemTextStyle={{paddingLeft: 10}}
                 selectedTextStyle={{paddingVertical: 15, paddingLeft: 25}}
-                containerStyle={{borderColor: "#F4F4F4"}}
+                containerStyle={{borderColor: colors.border}}
                 renderRightIcon={(visible) => (
                     <FontAwesome5
                         name={"chevron-down"}
                         size={14}
-                        color={"#0F3641"}
+                        color={colors.textPrimary}
                         style={{marginRight: 20, transform: [{rotate: visible ? "180deg" : "0deg"}]}}/>
                 )}/>
         </View>

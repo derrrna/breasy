@@ -1,6 +1,7 @@
 import {Pressable, Text, View} from "react-native";
 import Animated, {useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
 import {useEffect} from "react";
+import colors from "@/utils/colors";
 
 const RADIO_SIZE = 28;
 const BORDER_WIDTH = 3;
@@ -26,10 +27,10 @@ export default function RadioOption({label, checked, onPress}: RadioOptionProps)
     return (
         <Pressable onPress={onPress} className={"flex-row items-center py-3 gap-3"}>
             <View
-                className={"rounded-full bg-[#168AAD] items-center justify-center"}
+                className={"rounded-full bg-primary items-center justify-center"}
                 style={{width: RADIO_SIZE, height: RADIO_SIZE}}>
                 <View
-                    className={"rounded-full bg-[#F8FDFF]"}
+                    className={"rounded-full bg-primaryLight"}
                     style={{width: INNER_SIZE, height: INNER_SIZE}}/>
                 <Animated.View
                     style={[
@@ -38,12 +39,12 @@ export default function RadioOption({label, checked, onPress}: RadioOptionProps)
                             width: RADIO_SIZE,
                             height: RADIO_SIZE,
                             borderRadius: RADIO_SIZE / 2,
-                            backgroundColor: '#168AAD',
+                            backgroundColor: colors.primary,
                         },
                         filledStyle,
                     ]}/>
             </View>
-            <Text className={"text-[#0F3641] font-interSemiBold text-md"}>{label}</Text>
+            <Text className={"text-textPrimary font-interSemiBold text-md"}>{label}</Text>
         </Pressable>
     );
 }

@@ -12,10 +12,10 @@ export default function SettingsSection({title, description, children, className
 
     return (
         <View className={`flex-col w-full mb-2 ${className ?? ''}`}>
-            <Text className={"text-xl font-interBold pt-4 text-[#0F3641]"}>{title}</Text>
-            <Text className={"text-[#0F3641] font-interRegular mb-3"}>{description}</Text>
+            <Text className={"text-xl font-interBold pt-4 text-textPrimary"}>{title}</Text>
+            <Text className={"text-textPrimary font-interRegular mb-3"}>{description}</Text>
             {children}
-            <View className={"bg-[#F4F4F4] h-0.5 w-full mt-4 rounded-full"}/>
+            <View className={"bg-border h-0.5 w-full mt-4 rounded-full"}/>
         </View>
     )
 

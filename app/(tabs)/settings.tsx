@@ -1,11 +1,12 @@
 import {ScrollView, View} from 'react-native';
-import {SettingsContext} from "@/store/settingsContext";
+import {SettingsContext} from "@/contexts/settingsContext";
 import {useContext} from "react";
-import SettingsSection from "@/components/form/settingsSection";
-import ExerciseSelection from "@/components/form/exerciseSelection";
-import Slider from "@/components/form/slider";
-import CountPicker from "@/components/form/countPicker";
+import SettingsSection from "@/components/organisms/settingsSection";
+import ExerciseSelection from "@/components/organisms/exerciseSelection";
+import Slider from "@/components/slider";
+import CountPicker from "@/components/molecules/countPicker";
 import {CUSTOM_CONSTRAINTS} from "@/utils/presets";
+import colors from "@/utils/colors";
 
 export default function Settings(){
 
@@ -13,7 +14,7 @@ export default function Settings(){
 
     return (
         <ScrollView className={"flex-1"}
-                    contentContainerClassName={"bg-[#FEFEFE] grow justify-center items-center px-8 pt-8"}>
+                    contentContainerClassName={"bg-offWhite grow justify-center items-center px-8 pt-8"}>
             <SettingsSection
                 title={"Breathing Exercise"}
                 description={"Select a breathing exercise to perform."}>
@@ -49,9 +50,9 @@ export default function Settings(){
                 title={"Vibration Strength"}
                 description={"Select the strength of vibration for Froggie."}>
                 <Slider
-                    minimumTrackTintColor={"#168AAD"}
-                    maximumTrackTintColor={"#168AAD80"}
-                    thumbTintColor={"#168AAD"}
+                    minimumTrackTintColor={colors.primary}
+                    maximumTrackTintColor={`${colors.primary}80`}
+                    thumbTintColor={colors.primary}
                     minimumValue={0}
                     maximumValue={5}
                     step={1}

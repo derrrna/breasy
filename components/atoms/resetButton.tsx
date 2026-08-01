@@ -1,6 +1,7 @@
 import {Animated, Pressable} from "react-native";
 import {FontAwesome6} from "@expo/vector-icons";
 import React, {useRef} from "react";
+import colors from "@/utils/colors";
 
 interface ResetButtonProps {
     onPress: () => void;
@@ -25,7 +26,7 @@ export default function ResetButton(props: ResetButtonProps) {
 
     const backgroundColor = colorAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: ['#8AC4D5', '#168AAD'],
+        outputRange: [colors.primarySoft, colors.primary],
     });
 
     const rotate = rotateAnim.interpolate({
@@ -36,9 +37,9 @@ export default function ResetButton(props: ResetButtonProps) {
     return (
         <Pressable onPress={onPress} onPressIn={onPressIn} onPressOut={onPressOut}>
             <Animated.View style={{ backgroundColor }} className={"items-center rounded-xl justify-center w-14 h-14 overflow-hidden"}>
-                <Animated.View className={"absolute inset-0 bg-[#168AAD]"} style={{ opacity: spinBgAnim }} />
+                <Animated.View className={"absolute inset-0 bg-primary"} style={{ opacity: spinBgAnim }} />
                 <Animated.View style={{ transform: [{ rotate }] }}>
-                    <FontAwesome6 name={"arrows-rotate"} color={"#FEFEFE"} size={34} />
+                    <FontAwesome6 name={"arrows-rotate"} color={colors.offWhite} size={34} />
                 </Animated.View>
             </Animated.View>
         </Pressable>

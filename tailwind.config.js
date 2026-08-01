@@ -1,10 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("./utils/colors");
+
 module.exports = {
   // TODO double check this
   content: ["./app/**/*.{js,jsx,ts,tsx}", "./components/**/*.{js,jsx,ts,tsx}"],
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
+      colors,
       fontFamily: {
         vividly: ['vividly'],
         interMedium: ['Inter_500Medium'],

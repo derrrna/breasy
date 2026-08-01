@@ -4,8 +4,9 @@ import {FontAwesome6} from "@expo/vector-icons";
 import Animated, {useAnimatedStyle, useSharedValue, withSpring} from "react-native-reanimated";
 import {useEffect, useRef, useState} from "react";
 import {DROP_SHADOW} from "@/utils/styles";
+import colors from "@/utils/colors";
 
-const ACTIVE_COLOR = "#0F3641";
+const ACTIVE_COLOR = colors.textPrimary;
 const INACTIVE_COLOR = "white";
 const COLOR_TRANSITION_DURATION = 100;
 const TAB_VERTICAL_PADDING = 3;
@@ -78,7 +79,7 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
     //TODO review
     return (
         <View className={"absolute bottom-0 left-0 right-0 flex-row items-center px-6 pb-10 gap-4"}>
-            <View className={"flex-row flex-1 bg-[#168AAD] rounded-full p-1.5"} style={DROP_SHADOW}>
+            <View className={"flex-row flex-1 bg-primary rounded-full p-1.5"} style={DROP_SHADOW}>
                 <View onLayout={onTabsLayout} className={"flex-row flex-1"}>
                     {tabsWidth > 0 ? (
                         <Animated.View
@@ -129,7 +130,7 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
             </View>
             <Pressable onPress={onFrogPress}>
                 <View
-                    className={"bg-[#168AAD] rounded-full items-center justify-center"}
+                    className={"bg-primary rounded-full items-center justify-center"}
                     style={{width: FROG_SIZE, height: FROG_SIZE, ...DROP_SHADOW}}>
                     <FontAwesome6 name={"frog"} size={34} color={"white"}/>
                 </View>
