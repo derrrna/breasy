@@ -1,10 +1,11 @@
-import {Animated as RNAnimated, LayoutChangeEvent, Pressable, StyleSheet, View} from "react-native";
+import {LayoutChangeEvent, Pressable, StyleSheet, View} from "react-native";
 import {BottomTabBarProps} from "@react-navigation/bottom-tabs";
 import {FontAwesome6} from "@expo/vector-icons";
-import Animated, {useAnimatedStyle, useSharedValue, withSpring} from "react-native-reanimated";
-import {useEffect, useRef, useState} from "react";
+import Animated, {useAnimatedStyle} from "react-native-reanimated";
+import {useState} from "react";
 import {DROP_SHADOW} from "@/utils/styles";
 import colors from "@/utils/colors";
+import {useAnimatedValue} from "@/hooks/useAnimatedValue";
 
 const ACTIVE_COLOR = colors.textPrimary;
 const INACTIVE_COLOR = "white";
@@ -21,34 +22,28 @@ function TabButtonContent({
     label: string;
     icon: (color: string) => React.ReactNode;
 }) {
-    const progress = useRef(new RNAnimated.Value(focused ? 1 : 0)).current;
+    const progress = useAnimatedValue(focused ? 1 : 0, {duration: COLOR_TRANSITION_DURATION});
 
-    useEffect(() => {
-        RNAnimated.timing(progress, {
-            toValue: focused ? 1 : 0,
-            duration: COLOR_TRANSITION_DURATION,
-            useNativeDriver: true,
-        }).start();
-    }, [focused]);
-
-    const activeOpacity = progress;
-    const inactiveOpacity = progress.interpolate({inputRange: [0, 1], outputRange: [1, 0]});
+    const activeStyle = useAnimatedStyle(() => ({opacity: progress.value}));
+    const inactiveStyle = useAnimatedStyle(() => ({opacity: 1 - progress.value}));
+    const activeTextStyle = useAnimatedStyle(() => ({opacity: progress.value, color: ACTIVE_COLOR}));
+    const inactiveTextStyle = useAnimatedStyle(() => ({opacity: 1 - progress.value, color: INACTIVE_COLOR}));
 
     return (
         <View className={"items-center justify-center gap-1"}>
             <View>
-                <RNAnimated.View style={{opacity: inactiveOpacity}}>{icon(INACTIVE_COLOR)}</RNAnimated.View>
-                <RNAnimated.View style={[StyleSheet.absoluteFill, {opacity: activeOpacity}]}>{icon(ACTIVE_COLOR)}</RNAnimated.View>
+                <Animated.View style={inactiveStyle}>{icon(INACTIVE_COLOR)}</Animated.View>
+                <Animated.View style={[StyleSheet.absoluteFill, activeStyle]}>{icon(ACTIVE_COLOR)}</Animated.View>
             </View>
             <View>
-                <RNAnimated.Text className={"font-interSemiBold text-sm"} style={{opacity: inactiveOpacity, color: INACTIVE_COLOR}}>
+                <Animated.Text className={"font-interSemiBold text-sm"} style={inactiveTextStyle}>
                     {label}
-                </RNAnimated.Text>
-                <RNAnimated.Text
+                </Animated.Text>
+                <Animated.Text
                     className={"font-interSemiBold text-sm"}
-                    style={[StyleSheet.absoluteFill, {opacity: activeOpacity, color: ACTIVE_COLOR}]}>
+                    style={[StyleSheet.absoluteFill, activeTextStyle]}>
                     {label}
-                </RNAnimated.Text>
+                </Animated.Text>
             </View>
         </View>
     );
@@ -62,11 +57,7 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
 
     const [tabsWidth, setTabsWidth] = useState(0);
     const tabWidth = tabsWidth / state.routes.length;
-    const pillOffset = useSharedValue(state.index * tabWidth);
-
-    useEffect(() => {
-        pillOffset.value = withSpring(state.index * tabWidth, {damping: 16, stiffness: 164.7, mass: 0.4});
-    }, [state.index, tabWidth]);
+    const pillOffset = useAnimatedValue(state.index * tabWidth, {spring: {damping: 16, stiffness: 164.7, mass: 0.4}});
 
     const pillStyle = useAnimatedStyle(() => ({
         transform: [{translateX: pillOffset.value}],

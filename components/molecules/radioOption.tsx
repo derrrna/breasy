@@ -1,7 +1,7 @@
 import {Pressable, Text, View} from "react-native";
-import Animated, {useAnimatedStyle, useSharedValue, withTiming} from "react-native-reanimated";
-import {useEffect} from "react";
+import Animated, {useAnimatedStyle} from "react-native-reanimated";
 import colors from "@/utils/colors";
+import {useAnimatedValue} from "@/hooks/useAnimatedValue";
 
 const RADIO_SIZE = 28;
 const BORDER_WIDTH = 3;
@@ -14,11 +14,7 @@ interface RadioOptionProps {
 }
 
 export default function RadioOption({label, checked, onPress}: RadioOptionProps) {
-    const filled = useSharedValue(checked ? 1 : 0);
-
-    useEffect(() => {
-        filled.value = withTiming(checked ? 0.5 : 0, {duration: 150});
-    }, [checked]);
+    const filled = useAnimatedValue(checked ? 0.5 : 0, {duration: 150});
 
     const filledStyle = useAnimatedStyle(() => ({
         transform: [{scale: filled.value}],

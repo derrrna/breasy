@@ -1,10 +1,11 @@
 import {Dropdown} from "react-native-element-dropdown";
 import {numberRange} from "@/utils/presets";
 import {Text, View} from "react-native";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {FontAwesome5} from "@expo/vector-icons";
-import {interpolateColor, runOnJS, useAnimatedReaction, useSharedValue, withTiming} from "react-native-reanimated";
+import {interpolateColor, runOnJS, useAnimatedReaction} from "react-native-reanimated";
 import colors from "@/utils/colors";
+import {useAnimatedValue} from "@/hooks/useAnimatedValue";
 
 const BORDER_INACTIVE_COLOR = colors.border;
 const BORDER_ACTIVE_COLOR = colors.primary;
@@ -20,11 +21,7 @@ interface CountPickerProps {
 export default function CountPicker({name, value, onValueChange, constraints, marginBottom}: CountPickerProps) {
     const [isFocused, setIsFocused] = useState(false);
     const [borderColor, setBorderColor] = useState(BORDER_INACTIVE_COLOR);
-    const focusProgress = useSharedValue(0);
-
-    useEffect(() => {
-        focusProgress.value = withTiming(isFocused ? 1 : 0, {duration: 200});
-    }, [isFocused]);
+    const focusProgress = useAnimatedValue(isFocused ? 1 : 0, {duration: 200});
 
     useAnimatedReaction(
         () => interpolateColor(focusProgress.value, [0, 1], [BORDER_INACTIVE_COLOR, BORDER_ACTIVE_COLOR]),

@@ -1,24 +1,25 @@
 import {useSettingsContext} from "@/contexts/settingsContext";
 import { Switch } from 'react-native-switch';
-import {Animated, View} from "react-native";
-import React, {useEffect, useRef} from "react";
+import {View} from "react-native";
+import Animated, {useAnimatedStyle} from "react-native-reanimated";
+import React from "react";
 import MuteIcon from "@/components/atoms/muteIcon";
 import VolumeIcon from "@/components/atoms/volumeIcon";
 import colors from "@/utils/colors";
+import {useAnimatedValue} from "@/hooks/useAnimatedValue";
 
 function AnimatedSoundIcon({ isSoundOn }: { isSoundOn: boolean }) {
-    const progress = useRef(new Animated.Value(isSoundOn ? 1 : 0)).current;
+    const progress = useAnimatedValue(isSoundOn ? 1 : 0, {duration: 100});
 
-    useEffect(() => {
-        Animated.timing(progress, { toValue: isSoundOn ? 1 : 0, duration: 100, useNativeDriver: true }).start();
-    }, [isSoundOn]);
+    const muteStyle = useAnimatedStyle(() => ({opacity: 1 - progress.value}));
+    const volumeStyle = useAnimatedStyle(() => ({opacity: progress.value}));
 
     return (
         <View className={"w-[30px] h-8 items-center justify-center"}>
-            <Animated.View className={"absolute inset-0 items-center justify-center"} style={{ opacity: progress.interpolate({ inputRange: [0, 1], outputRange: [1, 0] }) }}>
+            <Animated.View className={"absolute inset-0 items-center justify-center"} style={muteStyle}>
                 <MuteIcon color={colors.primaryDark} size={25}/>
             </Animated.View>
-            <Animated.View className={"absolute inset-0 items-center justify-center"} style={{ opacity: progress }}>
+            <Animated.View className={"absolute inset-0 items-center justify-center"} style={volumeStyle}>
                 <VolumeIcon color={colors.primary} size={25}/>
             </Animated.View>
         </View>
