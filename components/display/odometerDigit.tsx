@@ -14,6 +14,7 @@ interface OdometerDigitProps {
 // yet, so currentCycle can exceed 9. Add validation on the custom breathing
 // exercise fields to cap cycle count, or extend this to multi-digit columns.
 export default function OdometerDigit({digit, className}: OdometerDigitProps) {
+
     const translateY = useAnimatedValue(digit * -DIGIT_HEIGHT, {
         duration: 350,
         easing: Easing.out(Easing.cubic),

@@ -1,11 +1,11 @@
 import {Tabs} from 'expo-router';
-import PlayButton from "@/components/playButton";
+import PlayButton from "@/components/buttons/playButton";
 import React from "react";
 import SettingsContextProvider from "@/contexts/settingsContext";
 import ExerciseContextProvider from "@/contexts/exerciseContext";
-import BottomBar from "@/components/organisms/bottomBar";
-import HomeIcon from "@/components/atoms/homeIcon";
-import CogIcon from "@/components/atoms/cogIcon";
+import BottomBar from "@/components/navigation/bottomBar";
+import HomeIcon from "@/components/icons/homeIcon";
+import CogIcon from "@/components/icons/cogIcon";
 
 export default function TabLayout() {
     return (

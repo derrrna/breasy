@@ -1,14 +1,14 @@
-import {Switch, Text, View} from "react-native";
+import {Text, View} from "react-native";
 import Animated from "react-native-reanimated";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import ResetButton from "@/components/atoms/resetButton";
+import ResetButton from "@/components/buttons/resetButton";
 import {useExerciseContext} from "@/contexts/exerciseContext";
-import SoundSwitch from "@/components/molecules/soundSwitch";
+import SoundSwitch from "@/components/buttons/soundSwitch";
 import {useSettingsContext} from "@/contexts/settingsContext";
 import {Circle} from "react-native-svg";
-import PlayButton from "@/components/playButton";
-import LilypadsBackground from "@/components/organisms/lilypadsBackground";
-import OdometerDigit from "@/components/atoms/odometerDigit";
+import PlayButton from "@/components/buttons/playButton";
+import LilypadsBackground from "@/components/display/lilypadsBackground";
+import OdometerDigit from "@/components/display/odometerDigit";
 import {useCrossfade} from "@/hooks/useCrossfade";
 import colors from "@/utils/colors";
 

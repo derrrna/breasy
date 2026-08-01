@@ -1,10 +1,10 @@
 import {ScrollView, View} from 'react-native';
 import {SettingsContext} from "@/contexts/settingsContext";
 import {useContext} from "react";
-import SettingsSection from "@/components/organisms/settingsSection";
-import ExerciseSelection from "@/components/organisms/exerciseSelection";
-import Slider from "@/components/slider";
-import CountPicker from "@/components/molecules/countPicker";
+import SettingsSection from "@/components/form/settingsSection";
+import ExerciseSelection from "@/components/form/exerciseSelection";
+import Slider from "@/components/form/slider";
+import CountPicker from "@/components/form/countPicker";
 import {CUSTOM_CONSTRAINTS} from "@/utils/presets";
 import colors from "@/utils/colors";
 
@@ -15,12 +15,14 @@ export default function Settings(){
     return (
         <ScrollView className={"flex-1"}
                     contentContainerClassName={"bg-offWhite grow justify-center items-center px-8 pt-8"}>
+            {/* BREATHING EXERCISE */}
             <SettingsSection
                 title={"Breathing Exercise"}
                 description={"Select a breathing exercise to perform."}>
                 <ExerciseSelection/>
             </SettingsSection>
 
+            {/* CUSTOM EXERCISE */}
             <SettingsSection
                 title={"Custom Exercise"}
                 description={"Set a custom breathing exercise."}>
@@ -46,6 +48,7 @@ export default function Settings(){
 
             </SettingsSection>
 
+            {/* VIBRATION STRENGTH */}
             <SettingsSection
                 title={"Vibration Strength"}
                 description={"Select the strength of vibration for Froggie."}>

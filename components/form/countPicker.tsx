@@ -37,7 +37,9 @@ export default function CountPicker({name, value, onValueChange, constraints, ma
 
     return (
         <View style={{marginBottom}}>
+            {/* LABEL */}
             <Text className={"font-interSemiBold mb-3 text-md mt-5"}>{name} Count</Text>
+            {/* DROPDOWN */}
             <Dropdown
                 data={data}
                 labelField={"label"}

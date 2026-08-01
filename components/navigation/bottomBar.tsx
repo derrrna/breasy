@@ -23,7 +23,6 @@ function TabButtonContent({
     icon: (color: string) => React.ReactNode;
 }) {
     const progress = useAnimatedValue(focused ? 1 : 0, {duration: COLOR_TRANSITION_DURATION});
-
     const activeStyle = useAnimatedStyle(() => ({opacity: progress.value}));
     const inactiveStyle = useAnimatedStyle(() => ({opacity: 1 - progress.value}));
     const activeTextStyle = useAnimatedStyle(() => ({opacity: progress.value, color: ACTIVE_COLOR}));
@@ -32,16 +31,18 @@ function TabButtonContent({
     return (
         <View className={"items-center justify-center gap-1"}>
             <View>
-                <Animated.View style={inactiveStyle}>{icon(INACTIVE_COLOR)}</Animated.View>
-                <Animated.View style={[StyleSheet.absoluteFill, activeStyle]}>{icon(ACTIVE_COLOR)}</Animated.View>
+                <Animated.View style={inactiveStyle}>
+                    {icon(INACTIVE_COLOR)}
+                </Animated.View>
+                <Animated.View style={[StyleSheet.absoluteFill, activeStyle]}>
+                    {icon(ACTIVE_COLOR)}
+                </Animated.View>
             </View>
             <View>
                 <Animated.Text className={"font-interSemiBold text-sm"} style={inactiveTextStyle}>
                     {label}
                 </Animated.Text>
-                <Animated.Text
-                    className={"font-interSemiBold text-sm"}
-                    style={[StyleSheet.absoluteFill, activeTextStyle]}>
+                <Animated.Text className={"font-interSemiBold text-sm"} style={[StyleSheet.absoluteFill, activeTextStyle]}>
                     {label}
                 </Animated.Text>
             </View>
@@ -50,10 +51,6 @@ function TabButtonContent({
 }
 
 export default function BottomBar({state, descriptors, navigation}: BottomTabBarProps) {
-
-    const onFrogPress = () => {
-        // TODO: decide what this button should do.
-    };
 
     const [tabsWidth, setTabsWidth] = useState(0);
     const tabWidth = tabsWidth / state.routes.length;
@@ -67,58 +64,63 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
         setTabsWidth(event.nativeEvent.layout.width);
     };
 
-    //TODO review
+    const onFrogPress = () => {
+        // TODO: decide what this button should do.
+    };
+
+    const renderTab = (route: (typeof state.routes)[number], index: number) => {
+        const {options} = descriptors[route.key];
+        const isFocused = state.index === index;
+        const label = options.title ?? route.name;
+
+        const onPress = () => {
+            const event = navigation.emit({
+                type: 'tabPress',
+                target: route.key,
+                canPreventDefault: true,
+            });
+
+            if (!isFocused && !event.defaultPrevented) {
+                navigation.navigate(route.name);
+            }
+        };
+
+        return (
+            <Pressable
+                key={route.key}
+                onPress={onPress}
+                className={"flex-1 items-center justify-center rounded-full"}
+                style={{paddingVertical: TAB_VERTICAL_PADDING}}>
+                <TabButtonContent
+                    focused={isFocused}
+                    label={label}
+                    icon={(color) => options.tabBarIcon?.({focused: isFocused, color, size: 22})}
+                />
+            </Pressable>
+        );
+    };
+
     return (
         <View className={"absolute bottom-0 left-0 right-0 flex-row items-center px-6 pb-10 gap-4"}>
+
+            {/* TABS */}
             <View className={"flex-row flex-1 bg-primary rounded-full p-1.5"} style={DROP_SHADOW}>
                 <View onLayout={onTabsLayout} className={"flex-row flex-1"}>
+
+                    {/* ACTIVE TAB PILL */}
                     {tabsWidth > 0 ? (
                         <Animated.View
-                            style={[
-                                {
-                                    position: 'absolute',
-                                    top: 0,
-                                    bottom: 0,
-                                    left: 0,
-                                    width: tabWidth,
-                                    borderRadius: 9999,
-                                    backgroundColor: 'white',
-                                },
-                                pillStyle,
-                            ]}/>
+                            className={"absolute top-0 bottom-0 left-0 rounded-full bg-white"}
+                            style={[{width: tabWidth}, pillStyle]}
+                        />
                     ) : null}
-                    {state.routes.map((route, index) => {
-                        const {options} = descriptors[route.key];
-                        const isFocused = state.index === index;
-                        const label = options.title ?? route.name;
 
-                        const onPress = () => {
-                            const event = navigation.emit({
-                                type: 'tabPress',
-                                target: route.key,
-                                canPreventDefault: true,
-                            });
+                    {state.routes.map(renderTab)}
 
-                            if (!isFocused && !event.defaultPrevented) {
-                                navigation.navigate(route.name);
-                            }
-                        };
-
-                        return (
-                            <Pressable
-                                key={route.key}
-                                onPress={onPress}
-                                className={"flex-1 items-center justify-center rounded-full"}
-                                style={{paddingVertical: TAB_VERTICAL_PADDING}}>
-                                <TabButtonContent
-                                    focused={isFocused}
-                                    label={label}
-                                    icon={(color) => options.tabBarIcon?.({focused: isFocused, color, size: 22})}/>
-                            </Pressable>
-                        );
-                    })}
                 </View>
             </View>
+
+            {/* FROG BUTTON */}
             <Pressable onPress={onFrogPress}>
                 <View
                     className={"bg-primary rounded-full items-center justify-center"}
@@ -126,6 +128,7 @@ export default function BottomBar({state, descriptors, navigation}: BottomTabBar
                     <FontAwesome6 name={"frog"} size={34} color={"white"}/>
                 </View>
             </Pressable>
+
         </View>
     );
 }

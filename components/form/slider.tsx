@@ -92,6 +92,7 @@ export default function Slider({
         <View style={{marginBottom: 16}}>
             <GestureDetector gesture={composedGesture}>
                 <View onLayout={onLayout} style={{height: CONTAINER_HEIGHT, justifyContent: 'center'}}>
+                    {/* TRACK */}
                     <View
                         style={{
                             position: 'absolute',
@@ -101,6 +102,7 @@ export default function Slider({
                             borderRadius: TRACK_HEIGHT / 2,
                             backgroundColor: maximumTrackTintColor,
                         }}/>
+                    {/* FILL */}
                     <Animated.View
                         style={[
                             {
@@ -112,6 +114,7 @@ export default function Slider({
                             },
                             fillStyle,
                         ]}/>
+                    {/* THUMB */}
                     <Animated.View
                         style={[
                             {
@@ -126,6 +129,7 @@ export default function Slider({
                         ]}/>
                 </View>
             </GestureDetector>
+            {/* STEP NUMBERS */}
             {renderStepNumber ? (
                 <View
                     className={"flex-row justify-between"}

@@ -1,7 +1,7 @@
 import {View} from "react-native";
 import {useSettingsContext} from "@/contexts/settingsContext";
 import {BREATHING_PRESETS, CUSTOM_EXERCISE_NAME, PRESET_NAMES, PresetNames} from "@/utils/presets";
-import RadioOption from "@/components/molecules/radioOption";
+import RadioOption from "@/components/form/radioOption";
 
 const EXERCISE_OPTIONS: {label: string, value: PresetNames}[] = PRESET_NAMES.map((value) => ({
     value,

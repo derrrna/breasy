@@ -2,6 +2,9 @@ import React, {createContext, ReactNode, useContext, useEffect, useRef, useState
 import {useSettingsContext} from "@/contexts/settingsContext";
 import {useAudioPlayer} from "expo-audio";
 
+const CHIME = require("@/assets/audio/chime.mp3");
+const COMPLETE_CHIME = require("@/assets/audio/completeChime.mp3");
+
 export interface exerciseContextValue {
     isRunning: boolean;
     toggleRunning: () => void;
@@ -72,10 +75,8 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
     }, [settingsContext.activePresetInfo])
 
     // SOUND
-    const chime = require("@/assets/audio/chime.mp3")
-    const chimePlayer = useAudioPlayer(chime);
-    const completeChime = require("@/assets/audio/completeChime.mp3")
-    const completeChimePlayer = useAudioPlayer(completeChime);
+    const chimePlayer = useAudioPlayer(CHIME);
+    const completeChimePlayer = useAudioPlayer(COMPLETE_CHIME);
 
     useEffect(() => {
 
