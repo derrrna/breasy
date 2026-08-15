@@ -32,123 +32,54 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
     const {inhaleCount, exhaleCount, cycleCount} = settingsContext.activePresetInfo
     const isSoundOn = settingsContext.isSoundOn;
 
-    const [currentCycle, setCurrentCycle] = useState(0)
-    const [isRunning, setIsRunning] = useState(false)
-    const [breathProgress, setBreathProgress] = useState(0)
-    const [isInhalePhase, setIsInhalePhase] = useState(true)
-    const [phaseCount, setPhaseCount] = useState(inhaleCount)
-
-    // NOTE: Redundancy
-    const currentCycleCopy = useRef(currentCycle)
-    const isInhalePhaseCopy = useRef(isInhalePhase)
-    const breathProgressCopy = useRef(breathProgress)
-    const inhaleCountCopy = useRef(inhaleCount)
-    const exhaleCountCopy = useRef(exhaleCount)
-    const cycleCountCopy = useRef(cycleCount)
-    const isSoundOnCopy = useRef(isSoundOn)
-
-    inhaleCountCopy.current = inhaleCount
-    exhaleCountCopy.current = exhaleCount
-    cycleCountCopy.current = cycleCount
-    isSoundOnCopy.current = isSoundOn
-
-    // PLAY BUTTON
-    const toggleRunning = () => {
-        setIsRunning(prev => !prev)
-    }
-
-    // RESET BUTTON
-    const reset = () => {
-        setIsRunning(false)
-        setBreathProgress(0)
-        setIsInhalePhase(true)
-        setPhaseCount(inhaleCount)
-        setCurrentCycle(0)
-        breathProgressCopy.current = 0
-        isInhalePhaseCopy.current = true
-        currentCycleCopy.current = 0
-    }
-
-    // Note: Resets everytime the exercise is changed.
-    useEffect(() => {
-        reset()
-    }, [settingsContext.activePresetInfo])
-
     // SOUND
     const chimePlayer = useAudioPlayer(CHIME);
     const completeChimePlayer = useAudioPlayer(COMPLETE_CHIME);
 
+    // SCAFFOLD — fill this in. See can-you-analyse-any-warm-tower.md plan / hooks/useBreathTimer.ts.
+    //
+    // The timer/phase state machine (state, ref-copies, toggleRunning, reset, and the
+    // interval effect that used to live directly in this function) has moved into
+    // useBreathTimer (hooks/useBreathTimer.ts). This provider's job now is just: call
+    // that hook, and decide what to do when it reports a tick.
+    //
+    // Call useBreathTimer({ inhaleCount, exhaleCount, cycleCount, onTick }), where
+    // onTick is a function you define here: (isLastTick: boolean) => void.
+    //
+    // onTick should do what the original onePhase() did with sound: if isSoundOn,
+    // pick completeChimePlayer when isLastTick is true, otherwise chimePlayer, then
+    // void player.seekTo(0) and player.play(). Nothing else — the hook now owns
+    // deciding WHEN a tick happens, this provider only owns WHAT SOUND plays when it does.
+    //
+    // Destructure what you need from the hook's return value:
+    //   isRunning, toggleRunning, breathProgress, phaseCount, isInhalePhase,
+    //   currentCycle, reset
+    // You'll use all of these in the JSX below, and `reset` in the effect right after.
+
+    const onTick = (isLastTick: boolean) => {
+        if (isSoundOnCopy) {
+
+            const soundPlayer = isLastTick ? completeChimePlayer : chimePlayer
+            void soundPlayer.seekTo(0);
+            soundPlayer.play();
+        }
+    }
+    // Note: Resets everytime the exercise is changed.
+    // Same as before, but now calling the `reset` that came back from useBreathTimer,
+    // not a locally-defined one.
     useEffect(() => {
-
-        // Conducts one tick's increment for whichever phase is current.
-        const onePhase = (count: number) => {
-            const nextProgress = breathProgressCopy.current + 1
-
-            setBreathProgress(nextProgress)
-            setPhaseCount(count)
-
-            if (isSoundOnCopy.current) {
-                const isLastTick = nextProgress === count
-
-                const soundPlayer = isLastTick ? completeChimePlayer : chimePlayer
-                void soundPlayer.seekTo(0);
-                soundPlayer.play();
-            }
-
-            breathProgressCopy.current = nextProgress
-        }
-
-        // Once running, run:
-        if (isRunning) {
-
-            const interval = setInterval(() => {
-
-                // If last tick's increment already reached the current
-                // phase's target, flip now - before this tick's increment -
-                // so the completed count (e.g. 4/4) stays on screen, in its
-                // own phase's color, for one full tick before switching.
-                const currentCount = isInhalePhaseCopy.current ? inhaleCountCopy.current : exhaleCountCopy.current
-                if (breathProgressCopy.current >= currentCount) {
-                    breathProgressCopy.current = 0
-                    if (isInhalePhaseCopy.current) {
-                        setIsInhalePhase(false)
-                        isInhalePhaseCopy.current = false
-                    } else {
-                        setIsInhalePhase(true)
-                        isInhalePhaseCopy.current = true
-                        // A full cycle just completed.
-                        setCurrentCycle(currentCycleCopy.current + 1)
-                        currentCycleCopy.current = currentCycleCopy.current + 1
-                    }
-                }
-
-                if (currentCycleCopy.current >= cycleCountCopy.current) {
-                    clearInterval(interval)
-                    setIsRunning(false)
-                    return
-                }
-
-                onePhase(isInhalePhaseCopy.current ? inhaleCountCopy.current : exhaleCountCopy.current)
-
-            }, 1000)
-
-            return () => {
-                clearInterval(interval)
-            }
-        }
-    }, [isRunning])
+        reset()
+    }, [settingsContext.activePresetInfo])
 
     return (
         <ExerciseContext.Provider
             value={{
                 isRunning,
                 toggleRunning,
-
                 breathProgress,
                 phaseCount,
                 isInhalePhase,
                 currentCycle,
-
                 reset,
             }}>
             {children}
