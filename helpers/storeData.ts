@@ -4,7 +4,6 @@ export const storeData = async (key: string, value: string) => {
     try {
         await AsyncStorage.setItem(key, value)
     } catch (e) {
-        //TODO
         console.error(e)
     }
 }

@@ -1,6 +1,5 @@
 import {ScrollView, View} from 'react-native';
-import {SettingsContext} from "@/contexts/settingsContext";
-import {useContext} from "react";
+import {useSettingsContext} from "@/contexts/settingsContext";
 import SettingsSection from "@/components/form/settingsSection";
 import ExerciseSelection from "@/components/form/exerciseSelection";
 import Slider from "@/components/form/slider";
@@ -10,7 +9,7 @@ import colors from "@/utils/colors";
 
 export default function Settings(){
 
-    const settingsContext = useContext(SettingsContext);
+    const settingsContext = useSettingsContext();
 
     return (
         <ScrollView className={"flex-1"}
@@ -29,20 +28,20 @@ export default function Settings(){
 
                 <CountPicker
                     name={"Inhale"}
-                    value={settingsContext?.inhaleCount ?? 4}
-                    onValueChange={(value) => settingsContext?.setInhaleCount(value)}
+                    value={settingsContext.inhaleCount}
+                    onValueChange={settingsContext.setInhaleCount}
                     constraints={CUSTOM_CONSTRAINTS.inhale}/>
 
                 <CountPicker
                     name={"Exhale"}
-                    value={settingsContext?.exhaleCount ?? 6}
-                    onValueChange={(value) => settingsContext?.setExhaleCount(value)}
+                    value={settingsContext.exhaleCount}
+                    onValueChange={settingsContext.setExhaleCount}
                     constraints={CUSTOM_CONSTRAINTS.exhale}/>
 
                 <CountPicker
                     name={"Cycle"}
-                    value={settingsContext?.cycleCount ?? 3}
-                    onValueChange={(value) => settingsContext?.setCycleCount(value)}
+                    value={settingsContext.cycleCount}
+                    onValueChange={settingsContext.setCycleCount}
                     constraints={CUSTOM_CONSTRAINTS.cycle}
                     marginBottom={20}/>
 
@@ -56,12 +55,12 @@ export default function Settings(){
                     minimumTrackTintColor={colors.primary}
                     maximumTrackTintColor={`${colors.primary}80`}
                     thumbTintColor={colors.primary}
-                    minimumValue={0}
-                    maximumValue={5}
+                    minimumValue={CUSTOM_CONSTRAINTS.vibration.min}
+                    maximumValue={CUSTOM_CONSTRAINTS.vibration.max}
                     step={1}
                     renderStepNumber={true}
-                    value={settingsContext?.vibrationStrength ?? 0}
-                    onValueChange={(v) => settingsContext?.setVibrationStrength(v)}
+                    value={settingsContext.vibrationStrength}
+                    onValueChange={settingsContext.setVibrationStrength}
                 />
             </SettingsSection>
             <View className={"h-40"}></View>

@@ -15,10 +15,18 @@ export const isPresetName = (value: string): value is PresetNames =>
 
 export const CUSTOM_EXERCISE_NAME = "Custom Exercise";
 
-export const CUSTOM_CONSTRAINTS: Record<"inhale" | "exhale" | "cycle", {min: number, max: number}> = {
+export interface Range {
+    min: number;
+    max: number;
+}
+
+// Valid ranges for every user-set number. Read by the pickers/slider for their bounds
+// and by useSettings to clamp values loaded from storage, so both agree by construction.
+export const CUSTOM_CONSTRAINTS: Record<"inhale" | "exhale" | "cycle" | "vibration", Range> = {
     inhale: {min: 1, max: 6},
     exhale: {min: 1, max: 8},
     cycle: {min: 1, max: 10},
+    vibration: {min: 0, max: 5},
 }
 
 export const numberRange = (min: number, max: number): number[] =>

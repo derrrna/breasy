@@ -1,5 +1,5 @@
 import {LayoutChangeEvent, Pressable, StyleSheet, View} from "react-native";
-import {BottomTabBarProps} from "@react-navigation/bottom-tabs";
+import {BottomTabBarProps} from "expo-router/js-tabs";
 import {FontAwesome6} from "@expo/vector-icons";
 import Animated, {useAnimatedStyle} from "react-native-reanimated";
 import {useState} from "react";

@@ -7,6 +7,8 @@ export const KEYS = {
     CUSTOM_CYCLE_COUNT: 'settings.customCycleCount',
     // Vibration strength of device (PWM)
     VIBRATION_STRENGTH: 'settings.vibrationStrength',
-    // Whether toggle mute is on or off
-    MUTE_SOUND: 'settings.mute',
+    // Whether the chime sound is on. Renamed from 'settings.mute': the stored value was
+    // always isSoundOn, so the old key name inverted its meaning. Values under the old
+    // key are left orphaned rather than migrated, they cannot be trusted either way.
+    IS_SOUND_ON: 'settings.isSoundOn',
 }

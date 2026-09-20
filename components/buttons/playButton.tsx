@@ -7,7 +7,7 @@ import colors from "@/utils/colors";
 
 export default function PlayButton() {
 
-    const {isRunning, toggleRunning} = useExerciseContext();
+    const {isRunning, isComplete, toggleRunning} = useExerciseContext();
 
     const pressScale = useSharedValue(1);
     const iconScale = useSharedValue(1);
@@ -36,7 +36,7 @@ export default function PlayButton() {
     }));
 
     return (
-        <Pressable onPress={toggleRunning} onPressIn={onPressIn} onPressOut={onPressOut}>
+        <Pressable onPress={toggleRunning} onPressIn={onPressIn} onPressOut={onPressOut} disabled={isComplete}>
             <Animated.View style={pressStyle}
                            className={"  w-[110px] h-[110px]  rounded-full items-center justify-center"}>
                 <Animated.View style={iconStyle}>

@@ -9,7 +9,6 @@ export const getData = async (key: string) => {
             return undefined
         }
     } catch (e) {
-        //TODO
         console.error(e)
     }
 }

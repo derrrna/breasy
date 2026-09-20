@@ -1,12 +1,14 @@
-import React, {createContext, ReactNode, useContext, useEffect, useRef, useState} from "react";
+import React, {createContext, ReactNode, useContext, useEffect} from "react";
 import {useSettingsContext} from "@/contexts/settingsContext";
 import {useAudioPlayer} from "expo-audio";
+import useBreathTimer from "@/hooks/useBreathTimer";
 
 const CHIME = require("@/assets/audio/chime.mp3");
 const COMPLETE_CHIME = require("@/assets/audio/completeChime.mp3");
 
 export interface exerciseContextValue {
     isRunning: boolean;
+    isComplete: boolean;
     toggleRunning: () => void;
     breathProgress: number;
     phaseCount: number;
@@ -25,56 +27,39 @@ export function useExerciseContext(): exerciseContextValue {
     return context;
 }
 
-//TODO this file is getting too big. separate out.
 export default function ExerciseContextProvider({children}: {children: ReactNode}) {
 
     const settingsContext = useSettingsContext();
     const {inhaleCount, exhaleCount, cycleCount} = settingsContext.activePresetInfo
     const isSoundOn = settingsContext.isSoundOn;
 
-    // SOUND
     const chimePlayer = useAudioPlayer(CHIME);
     const completeChimePlayer = useAudioPlayer(COMPLETE_CHIME);
 
-    // SCAFFOLD — fill this in. See can-you-analyse-any-warm-tower.md plan / hooks/useBreathTimer.ts.
-    //
-    // The timer/phase state machine (state, ref-copies, toggleRunning, reset, and the
-    // interval effect that used to live directly in this function) has moved into
-    // useBreathTimer (hooks/useBreathTimer.ts). This provider's job now is just: call
-    // that hook, and decide what to do when it reports a tick.
-    //
-    // Call useBreathTimer({ inhaleCount, exhaleCount, cycleCount, onTick }), where
-    // onTick is a function you define here: (isLastTick: boolean) => void.
-    //
-    // onTick should do what the original onePhase() did with sound: if isSoundOn,
-    // pick completeChimePlayer when isLastTick is true, otherwise chimePlayer, then
-    // void player.seekTo(0) and player.play(). Nothing else — the hook now owns
-    // deciding WHEN a tick happens, this provider only owns WHAT SOUND plays when it does.
-    //
-    // Destructure what you need from the hook's return value:
-    //   isRunning, toggleRunning, breathProgress, phaseCount, isInhalePhase,
-    //   currentCycle, reset
-    // You'll use all of these in the JSX below, and `reset` in the effect right after.
-
     const onTick = (isLastTick: boolean) => {
-        if (isSoundOnCopy) {
-
+        if (isSoundOn) {
             const soundPlayer = isLastTick ? completeChimePlayer : chimePlayer
             void soundPlayer.seekTo(0);
             soundPlayer.play();
         }
     }
-    // Note: Resets everytime the exercise is changed.
-    // Same as before, but now calling the `reset` that came back from useBreathTimer,
-    // not a locally-defined one.
+
+    const {isRunning, isComplete, toggleRunning, breathProgress, phaseCount, isInhalePhase, currentCycle, reset} = useBreathTimer(
+        inhaleCount,
+        exhaleCount,
+        cycleCount,
+        onTick,
+    )
+
     useEffect(() => {
         reset()
-    }, [settingsContext.activePresetInfo])
+    }, [settingsContext.activePreset, inhaleCount, exhaleCount, cycleCount])
 
     return (
         <ExerciseContext.Provider
             value={{
                 isRunning,
+                isComplete,
                 toggleRunning,
                 breathProgress,
                 phaseCount,

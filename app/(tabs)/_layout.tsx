@@ -1,4 +1,5 @@
-import {Tabs} from 'expo-router';
+// js-tabs subpath: the root 'expo-router' export of Tabs is deprecated in SDK 57
+import {Tabs} from 'expo-router/js-tabs';
 import PlayButton from "@/components/buttons/playButton";
 import React from "react";
 import SettingsContextProvider from "@/contexts/settingsContext";
