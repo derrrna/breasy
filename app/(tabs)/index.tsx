@@ -11,14 +11,24 @@ import LilypadsBackground from "@/components/display/lilypadsBackground";
 import OdometerDigit from "@/components/display/odometerDigit";
 import {useCrossfade} from "@/hooks/useCrossfade";
 import colors from "@/utils/colors";
+import {PhaseKind} from "@/utils/presets";
+
+// Everything the home screen shows per phase, kept together so a new phase kind is
+// one row here rather than three scattered conditionals.
+const PHASE_DISPLAY: Record<PhaseKind, {label: string, ring: string, cap: string}> = {
+    inhale: {label: "Inhale", ring: colors.secondary, cap: colors.secondaryDark},
+    hold: {label: "Hold", ring: colors.hold, cap: colors.holdDark},
+    exhale: {label: "Exhale", ring: colors.secondary, cap: colors.secondaryDark},
+};
 
 export default function Index() {
 
-    const {breathProgress, phaseCount, currentCycle, reset, isInhalePhase} = useExerciseContext();
+    const {breathProgress, phaseCount, currentCycle, reset, phase} = useExerciseContext();
+    const {ring, cap} = PHASE_DISPLAY[phase];
     const activePresetInfo = useSettingsContext().activePresetInfo
 
-    // Crossfade transition for the Inhale/Exhale label swap.
-    const {displayedValue: displayedPhase, animatedStyle: phaseAnimatedStyle} = useCrossfade(isInhalePhase);
+    // Crossfade transition for the phase label swap.
+    const {displayedValue: displayedPhase, animatedStyle: phaseAnimatedStyle} = useCrossfade(phase);
 
     return (
         <View className={"flex-col w-full bg-white h-full items-center overflow-hidden"}>
@@ -49,11 +59,11 @@ export default function Index() {
                     size={340}
                     width={28}
                     fill={(breathProgress / phaseCount) * 100}
-                    tintColor={colors.secondary}
-                    backgroundColor={`${colors.secondary}70`}
+                    tintColor={ring}
+                    backgroundColor={`${ring}70`}
                     lineCap={"round"}
                     renderCap={({ center }) => (
-                        <Circle cx={center.x} cy={center.y} r="8" fill={colors.secondaryDark} />
+                        <Circle cx={center.x} cy={center.y} r="8" fill={cap} />
                     )}
                     rotation={0}
                     duration={1000}
@@ -63,7 +73,7 @@ export default function Index() {
                             <Text className={"color-primary text-8xl font-interRegular"}>{breathProgress}</Text>
                             <Animated.View style={phaseAnimatedStyle}>
                                 <Text className={"color-textPrimary text-3xl font-interMedium"}>
-                                    {displayedPhase ? "Inhale" : "Exhale"}
+                                    {PHASE_DISPLAY[displayedPhase].label}
                                 </Text>
                             </Animated.View>
                         </View>

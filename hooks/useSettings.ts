@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import { getData } from "@/helpers/getData";
 import { storeData } from "@/helpers/storeData";
 import {KEYS} from "@/utils/keys";
-import {CUSTOM_CONSTRAINTS, isPresetName, PresetNames, Range} from "@/utils/presets";
+import {BREATHING_PRESETS, CUSTOM_CONSTRAINTS, isPresetName, PresetNames, Range} from "@/utils/presets";
 
 // Storage holds strings, so a stored number can be missing, non-numeric, or out of
 // range (older build, manual edit, corruption). Missing or NaN falls back to the
@@ -23,7 +23,13 @@ function useSyncToStorage(key: string, value: string, isLoaded: boolean) {
 }
 
 // Named so the load path below can fall back to the same values the state starts with.
-const DEFAULTS = {inhale: 4, exhale: 6, cycle: 3, vibration: 0}
+// The three counts come from the Paced preset so there is one definition of "default".
+const DEFAULTS = {
+    inhale: BREATHING_PRESETS.paced.inhaleCount,
+    exhale: BREATHING_PRESETS.paced.exhaleCount,
+    cycle: BREATHING_PRESETS.paced.cycleCount,
+    vibration: 0,
+}
 
 export const useSettings = () => {
 
@@ -44,9 +50,9 @@ export const useSettings = () => {
         const loadSettings = async () => {
             const [active, inhale, exhale, cycle, vibration, soundOn] = await Promise.all([
                 getData(KEYS.ACTIVE_PRESET),
-                getData(KEYS.CUSTOM_INHALE_COUNT),
-                getData(KEYS.CUSTOM_EXHALE_COUNT),
-                getData(KEYS.CUSTOM_CYCLE_COUNT),
+                getData(KEYS.PACED_INHALE_COUNT),
+                getData(KEYS.PACED_EXHALE_COUNT),
+                getData(KEYS.PACED_CYCLE_COUNT),
                 getData(KEYS.VIBRATION_STRENGTH),
                 getData(KEYS.IS_SOUND_ON),
             ])
@@ -65,9 +71,17 @@ export const useSettings = () => {
 
     // Updating Settings
     useSyncToStorage(KEYS.ACTIVE_PRESET, activePreset, isLoaded)
-    useSyncToStorage(KEYS.CUSTOM_INHALE_COUNT, String(inhaleCount), isLoaded)
-    useSyncToStorage(KEYS.CUSTOM_EXHALE_COUNT, String(exhaleCount), isLoaded)
-    useSyncToStorage(KEYS.CUSTOM_CYCLE_COUNT, String(cycleCount), isLoaded)
+    useSyncToStorage(KEYS.PACED_INHALE_COUNT, String(inhaleCount), isLoaded)
+    useSyncToStorage(KEYS.PACED_EXHALE_COUNT, String(exhaleCount), isLoaded)
+    useSyncToStorage(KEYS.PACED_CYCLE_COUNT, String(cycleCount), isLoaded)
+
+    // Puts the Paced counts back to the preset defaults. Lives here rather than in the
+    // settings screen so the screen never needs to know what the defaults are.
+    const resetPacedCounts = () => {
+        setInhaleCount(DEFAULTS.inhale)
+        setExhaleCount(DEFAULTS.exhale)
+        setCycleCount(DEFAULTS.cycle)
+    }
     useSyncToStorage(KEYS.VIBRATION_STRENGTH, String(vibrationStrength), isLoaded)
     useSyncToStorage(KEYS.IS_SOUND_ON, String(isSoundOn), isLoaded)
 
@@ -80,6 +94,7 @@ export const useSettings = () => {
         setExhaleCount,
         cycleCount,
         setCycleCount,
+        resetPacedCounts,
         vibrationStrength,
         setVibrationStrength,
         isSoundOn, setIsSoundOn})

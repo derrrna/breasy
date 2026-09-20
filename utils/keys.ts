@@ -1,10 +1,11 @@
 export const KEYS = {
     // Last selected breathing preset
     ACTIVE_PRESET: 'settings.activePreset',
-    // Stores user's custom inhale, exhale and cycle counts independently.
-    CUSTOM_INHALE_COUNT: 'settings.customInhaleCount',
-    CUSTOM_EXHALE_COUNT: 'settings.customExhaleCount',
-    CUSTOM_CYCLE_COUNT: 'settings.customCycleCount',
+    // The user's edited counts for Paced Breathing. Renamed from 'settings.custom*'
+    // when the Custom preset was merged into Paced; old values are left orphaned.
+    PACED_INHALE_COUNT: 'settings.pacedInhaleCount',
+    PACED_EXHALE_COUNT: 'settings.pacedExhaleCount',
+    PACED_CYCLE_COUNT: 'settings.pacedCycleCount',
     // Vibration strength of device (PWM)
     VIBRATION_STRENGTH: 'settings.vibrationStrength',
     // Whether the chime sound is on. Renamed from 'settings.mute': the stored value was

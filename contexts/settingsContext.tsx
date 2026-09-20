@@ -1,6 +1,6 @@
 import React, {createContext, ReactNode, useContext, useMemo} from "react";
 import { useSettings } from "@/hooks/useSettings";
-import {CUSTOM_EXERCISE_NAME, getPreset, Preset, PresetNames} from "@/utils/presets";
+import {getPreset, Preset, PresetNames} from "@/utils/presets";
 
 export interface settingsContextValue {
     activePreset: PresetNames;
@@ -12,6 +12,7 @@ export interface settingsContextValue {
     setExhaleCount: (exhaleCount: number) => void;
     cycleCount: number;
     setCycleCount: (cycleCount: number) => void;
+    resetPacedCounts: () => void;
     vibrationStrength: number;
     setVibrationStrength: (vibrationStrength: number) => void;
     isSoundOn: boolean;
@@ -30,13 +31,12 @@ export function useSettingsContext(): settingsContextValue {
 
 export default function SettingsContextProvider({children}: {children: ReactNode}) {
     const settings = useSettings()
-    const customPresetInfo = useMemo(() => ({
+    const pacedCounts = useMemo(() => ({
         inhaleCount: settings.inhaleCount,
         exhaleCount: settings.exhaleCount,
         cycleCount: settings.cycleCount,
-        formattedName: CUSTOM_EXERCISE_NAME,
     }), [settings.inhaleCount, settings.exhaleCount, settings.cycleCount])
-    const activePresetInfo = getPreset(settings.activePreset, customPresetInfo)
+    const activePresetInfo = getPreset(settings.activePreset, pacedCounts)
 
     return (
         <SettingsContext.Provider
@@ -51,6 +51,7 @@ export default function SettingsContextProvider({children}: {children: ReactNode
                 setExhaleCount: settings.setExhaleCount,
                 cycleCount: settings.cycleCount,
                 setCycleCount: settings.setCycleCount,
+                resetPacedCounts: settings.resetPacedCounts,
 
                 vibrationStrength: settings.vibrationStrength,
                 setVibrationStrength: settings.setVibrationStrength,

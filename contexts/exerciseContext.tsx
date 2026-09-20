@@ -1,7 +1,8 @@
-import React, {createContext, ReactNode, useContext, useEffect} from "react";
+import React, {createContext, ReactNode, useContext, useEffect, useMemo} from "react";
 import {useSettingsContext} from "@/contexts/settingsContext";
 import {useAudioPlayer} from "expo-audio";
 import useBreathTimer from "@/hooks/useBreathTimer";
+import {buildPhases, PhaseKind} from "@/utils/presets";
 
 const CHIME = require("@/assets/audio/chime.mp3");
 const COMPLETE_CHIME = require("@/assets/audio/completeChime.mp3");
@@ -12,7 +13,7 @@ export interface exerciseContextValue {
     toggleRunning: () => void;
     breathProgress: number;
     phaseCount: number;
-    isInhalePhase: boolean;
+    phase: PhaseKind;
     currentCycle: number;
     reset: () => void;
 }
@@ -30,8 +31,12 @@ export function useExerciseContext(): exerciseContextValue {
 export default function ExerciseContextProvider({children}: {children: ReactNode}) {
 
     const settingsContext = useSettingsContext();
-    const {inhaleCount, exhaleCount, cycleCount} = settingsContext.activePresetInfo
+    const activePresetInfo = settingsContext.activePresetInfo
+    const {inhaleCount, holdCount, exhaleCount, cycleCount} = activePresetInfo
     const isSoundOn = settingsContext.isSoundOn;
+
+    // Memoised on the counts so the array identity only changes when the pattern does.
+    const phases = useMemo(() => buildPhases(activePresetInfo), [inhaleCount, holdCount, exhaleCount])
 
     const chimePlayer = useAudioPlayer(CHIME);
     const completeChimePlayer = useAudioPlayer(COMPLETE_CHIME);
@@ -44,16 +49,15 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
         }
     }
 
-    const {isRunning, isComplete, toggleRunning, breathProgress, phaseCount, isInhalePhase, currentCycle, reset} = useBreathTimer(
-        inhaleCount,
-        exhaleCount,
+    const {isRunning, isComplete, toggleRunning, breathProgress, phaseCount, phase, currentCycle, reset} = useBreathTimer(
+        phases,
         cycleCount,
         onTick,
     )
 
     useEffect(() => {
         reset()
-    }, [settingsContext.activePreset, inhaleCount, exhaleCount, cycleCount])
+    }, [settingsContext.activePreset, inhaleCount, holdCount, exhaleCount, cycleCount])
 
     return (
         <ExerciseContext.Provider
@@ -63,7 +67,7 @@ export default function ExerciseContextProvider({children}: {children: ReactNode
                 toggleRunning,
                 breathProgress,
                 phaseCount,
-                isInhalePhase,
+                phase,
                 currentCycle,
                 reset,
             }}>

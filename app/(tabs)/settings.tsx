@@ -6,6 +6,7 @@ import Slider from "@/components/form/slider";
 import CountPicker from "@/components/form/countPicker";
 import {CUSTOM_CONSTRAINTS} from "@/utils/presets";
 import colors from "@/utils/colors";
+import ResetButton from "@/components/buttons/resetButton";
 
 export default function Settings(){
 
@@ -21,10 +22,10 @@ export default function Settings(){
                 <ExerciseSelection/>
             </SettingsSection>
 
-            {/* CUSTOM EXERCISE */}
+            {/* PACED BREATHING COUNTS */}
             <SettingsSection
-                title={"Custom Exercise"}
-                description={"Set a custom breathing exercise."}>
+                title={"Modify Paced Breathing"}
+                description={"Adjust the counts for Paced Breathing."}>
 
                 <CountPicker
                     name={"Inhale"}
@@ -42,8 +43,12 @@ export default function Settings(){
                     name={"Cycle"}
                     value={settingsContext.cycleCount}
                     onValueChange={settingsContext.setCycleCount}
-                    constraints={CUSTOM_CONSTRAINTS.cycle}
-                    marginBottom={20}/>
+                    constraints={CUSTOM_CONSTRAINTS.cycle}/>
+
+                {/* Back to the preset defaults. Provisional placement, to be judged on device. */}
+                <View className={"flex-row justify-end mt-4 mb-5"}>
+                    <ResetButton onPress={settingsContext.resetPacedCounts}/>
+                </View>
 
             </SettingsSection>
 
