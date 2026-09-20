@@ -4,9 +4,11 @@ import { Inter_400Regular, Inter_500Medium, Inter_600SemiBold, Inter_700Bold } f
 import "./global.css";
 import {SafeAreaProvider} from "react-native-safe-area-context";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
-import Header from "@/components/navigation/header";
+import SettingsContextProvider from "@/contexts/settingsContext";
+import ExerciseContextProvider from "@/contexts/exerciseContext";
 
 const VIVIDLY_FONT = require("../assets/fonts/Vividly-Regular.otf");
+const WORK_SANS_LIGHT_FONT = require("../assets/fonts/WorkSans-Light.ttf");
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -15,6 +17,7 @@ export default function RootLayout() {
     Inter_400Regular,
     Inter_600SemiBold,
     Inter_700Bold,
+    workSansLight: WORK_SANS_LIGHT_FONT,
   });
 
   if (!fontsLoaded) return null;
@@ -22,12 +25,14 @@ export default function RootLayout() {
   return (
       <GestureHandlerRootView style={{flex: 1}}>
           <SafeAreaProvider>
-              <Stack
-                  screenOptions={{
-                      header: () => <Header/>,
-                  }}>
-                  <Stack.Screen name="(tabs)"/>
-              </Stack>
+              <SettingsContextProvider>
+                  <ExerciseContextProvider>
+                      <Stack screenOptions={{headerShown: false}}>
+                          <Stack.Screen name="index"/>
+                          <Stack.Screen name="settings"/>
+                      </Stack>
+                  </ExerciseContextProvider>
+              </SettingsContextProvider>
           </SafeAreaProvider>
       </GestureHandlerRootView>
   )

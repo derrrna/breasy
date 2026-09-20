@@ -1,5 +1,5 @@
 module.exports = {
-    primary: "#168AAD",
+    primary: "#2FA4C7",
     primaryDark: "#126E8A",
     primaryLight: "#F8FDFF",
     primarySoft: "#8AC4D5",
@@ -15,5 +15,6 @@ module.exports = {
     textPrimary: "#0F3641",
     offWhite: "#FEFEFE",
     border: "#F4F4F4",
+    card: "#F7F7F7",
     shadow: "#000000",
 };

@@ -38,9 +38,9 @@ export default function PlayButton() {
     return (
         <Pressable onPress={toggleRunning} onPressIn={onPressIn} onPressOut={onPressOut} disabled={isComplete}>
             <Animated.View style={pressStyle}
-                           className={"  w-[110px] h-[110px]  rounded-full items-center justify-center"}>
+                           className={"w-[110px] h-[110px] rounded-full items-center justify-center"}>
                 <Animated.View style={iconStyle}>
-                    <FontAwesome6 name={isRunning ? "pause" : "play"} color={"white"} size={55} style={{ marginLeft: isRunning ? 0 : 4 }}/>
+                    <FontAwesome6 name={isRunning ? "pause" : "play"} color={"white"} size={45} style={{ marginLeft: isRunning ? 0 : 4 }}/>
                 </Animated.View>
             </Animated.View>
         </Pressable>

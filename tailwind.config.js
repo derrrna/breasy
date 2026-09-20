@@ -14,6 +14,7 @@ module.exports = {
         interRegular: ['Inter_400Regular'],
         interSemiBold: ['Inter_600SemiBold'],
         interBold: ['Inter_700Bold'],
+        workSansLight: ['workSansLight'],
       },
     },
   },
